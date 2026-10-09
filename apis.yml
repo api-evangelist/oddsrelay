@@ -1,0 +1,29 @@
+aid: oddsrelay
+name: OddsRelay
+description: 'OddsRelay is a company surfaced via the API Evangelist harvest backlog (source: new-submission)
+  and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/oddsrelay/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:new-submission
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-10-09'
+modified: '2026-10-09'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+common:
+- type: Website
+  url: https://oddsrelay.io
+- type: Documentation
+  url: https://oddsrelay.io/docs
+x-submission-notes: 'Bookmaker + exchange odds data API | Kin approved listing 2026-10-09 (case-by-case:
+  Clean API with OpenAPI 3.1 but gambling-adjacent (betting odds / matched betting))'
+x-submission-probe: docs 200; /openapi.json OpenAPI 3.1 14 ops; invented path 404
+x-submitted-by: hello@oddsrelay.io (apis.io/add, 2026-10-08)
