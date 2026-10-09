@@ -1,0 +1,4 @@
+Contact: mailto:hello@oddsrelay.io
+Expires: 2027-10-08T12:12:06.195Z
+Preferred-Languages: en
+Canonical: https://oddsrelay.io/.well-known/security.txt

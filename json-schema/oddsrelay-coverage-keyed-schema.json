@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/oddsrelay/main/json-schema/oddsrelay-coverage-keyed-schema.json",
+  "title": "CoverageKeyed",
+  "description": "The keyed view: your key's products the region serves.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/oddsrelay-openapi.yml#/components/schemas/CoverageKeyed",
+  "type": "object",
+  "required": [
+    "region",
+    "generated_at",
+    "products"
+  ],
+  "properties": {
+    "region": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "products": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "bookmakers",
+          "exchanges"
+        ],
+        "properties": {
+          "bookmakers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "name",
+                "sports"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sports": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "required": [
+                      "events"
+                    ],
+                    "properties": {
+                      "events": {
+                        "type": "integer"
+                      },
+                      "last_seen": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "The last instant this venue and sport was read (ISO-8601 Z); null when not known."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "name",
+                "sports"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sports": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "required": [
+                      "events"
+                    ],
+                    "properties": {
+                      "events": {
+                        "type": "integer"
+                      },
+                      "last_seen": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "The last instant this venue and sport was read (ISO-8601 Z); null when not known."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1683 @@
+openapi: 3.2.0
+info:
+  title: Oddsrelay Service API
+  version: '2026-07-08'
+  x-verified: '2026-10-08'
+  description: 'Operations tagged Service across 2 of this provider''s published API definitions: oddsrelay-openapi.json, oddsrelay-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.oddsrelay.io
+security:
+- bearerAuth: []
+- apiKeyHeader: []
+tags:
+- name: Service
+  description: Coverage, status, health, liveness and this document.
+paths:
+  /v2/coverage:
+    get:
+      operationId: getCoverage
+      summary: Coverage per venue and sport
+      description: 'One document per region, in two views. **Keyless** (no `Authorization` and no `x-api-key` header): per product, each (venue, sport) `live` or `interrupted_24h`, no counts and no times, then `markets`: per product, the market keys it carries, each one a value its `markets` filter takes now; the per-address shield only; `Cache-Control: public, max-age=60` and `Vary: Authorization, X-Api-Key, Accept-Encoding` on a 200; `Access-Control-Allow-Origin: *` on every reply, refusals and errors included. **Keyed** (either header present, even empty: an invalid key is 401): your key''s products the region serves, venues with rows now, their `events` and `last_seen`; on an account with a scope, only its products and, per product, the venues and sports it admits (markets are not applied: the document has no market grain; a scope that cannot be applied is 503 `temporarily_unavailable`); free; the flood cap applies. Both: `region` missing means `uk`, gzip over 1 kB unless refused, 503 until the first document is built.'
+      tags:
+      - Service
+      parameters:
+      - $ref: '#/components/parameters/region'
+      responses:
+        '200':
+          description: The keyless summary, or the keyed document.
+          headers:
+            X-OddsRelay-Api-Version:
+              description: 'Always sent: #/components/headers/X-OddsRelay-Api-Version'
+              required: true
+              schema:
+                type: string
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+            Vary:
+              description: 'Always sent: #/components/headers/Vary'
+              required: true
+              schema:
+                type: string
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+            X-RateLimit-Reset:
+              $ref: '#/components/headers/X-RateLimit-Reset'
+            X-Tokens-Cost:
+              $ref: '#/components/headers/X-Tokens-Cost'
+            X-Tokens-Used:
+              $ref: '#/components/headers/X-Tokens-Used'
+            X-Tokens-Remaining:
+              $ref: '#/components/headers/X-Tokens-Remaining'
+            X-Tokens-Limit:
+              $ref: '#/components/headers/X-Tokens-Limit'
+            X-Tokens-Reset:
+              $ref: '#/components/headers/X-Tokens-Reset'
+            Content-Encoding:
+              $ref: '#/components/headers/Content-Encoding'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/CoverageSummary'
+                - $ref: '#/components/schemas/CoverageKeyed'
+              examples:
+                keyless:
+                  summary: GET /v2/coverage (no key)
+                  value:
+                    region: uk
+                    generated_at: '2026-09-17T02:20:29Z'
+                    products:
+                      2up:
+                      - bookmaker: betmgm
+                        sport: soccer
+                        status: live
+                      - bookmaker: coral
+                        sport: soccer
+                        status: live
+                      bog:
+                      - bookmaker: betfred
+                        sport: horse_racing
+                        status: live
+                      - bookmaker: boylesports
+                        sport: horse_racing
+                        status: live
+                      dutching:
+                      - bookmaker: 7bet
+                        sport: american_football
+                        status: live
+                      - bookmaker: 7bet
+                        sport: aussie_rules
+                        status: live
+                      each-way:
+                      - bookmaker: 7bet
+                        sport: horse_racing
+                        status: live
+                      - bookmaker: bet600
+                        sport: horse_racing
+                        status: live
+                      extra-place:
+                      - bookmaker: bet600
+                        sport: horse_racing
+                        status: live
+                      - bookmaker: betfred
+                        sport: horse_racing
+                        status: live
+                      raw:
+                      - bookmaker: 7bet
+                        sport: american_football
+                        status: live
+                      - bookmaker: 7bet
+                        sport: aussie_rules
+                        status: live
+                      standard:
+                      - bookmaker: 7bet
+                        sport: american_football
+                        status: live
+                      - bookmaker: 7bet
+                        sport: aussie_rules
+                        status: interrupted_24h
+                    markets:
+                      2up:
+                      - h2h
+                      bog:
+                      - win
+                      dutching:
+                      - btts
+                      - h2h
+                      - totals
+                      each-way:
+                      - each_way
+                      extra-place:
+                      - each_way
+                      raw:
+                      - btts
+                      - h2h
+                      - h2h_lay
+                      standard:
+                      - btts
+                      - h2h
+                      - totals
+                  description: Trimmed from a live reply.
+                keyed:
+                  summary: GET /v2/coverage (a key)
+                  value:
+                    region: uk
+                    generated_at: '2026-09-17T02:20:29Z'
+                    products:
+                      2up:
+                        bookmakers:
+                        - key: betmgm
+                          name: BetMGM
+                          sports:
+                            soccer:
+                              events: 5
+                              last_seen: '2026-09-17T02:20:18Z'
+                        exchanges:
+                        - key: betdaq
+                          name: Betdaq
+                          sports:
+                            soccer:
+                              events: 149
+                              last_seen: '2026-09-17T02:20:06Z'
+                      bog:
+                        bookmakers:
+                        - key: betfred
+                          name: Betfred
+                          sports:
+                            horse_racing:
+                              events: 39
+                              last_seen: '2026-09-17T02:20:26Z'
+                        exchanges:
+                        - key: betfair_exchange
+                          name: Betfair Exchange
+                          sports:
+                            horse_racing:
+                              events: 38
+                              last_seen: '2026-09-17T02:20:18Z'
+                      dutching:
+                        bookmakers:
+                        - key: 7bet
+                          name: 7bet
+                          sports:
+                            american_football:
+                              events: 40
+                              last_seen: '2026-09-17T02:20:14Z'
+                            aussie_rules:
+                              events: 11
+                              last_seen: '2026-09-17T02:20:18Z'
+                        exchanges:
+                        - key: betdaq
+                          name: Betdaq
+                          sports:
+                            american_football:
+                              events: 61
+                              last_seen: '2026-09-17T02:20:21Z'
+                            baseball:
+                              events: 5
+                              last_seen: '2026-09-17T02:20:20Z'
+                      each-way:
+                        bookmakers:
+                        - key: 7bet
+                          name: 7bet
+                          sports:
+                            horse_racing:
+                              events: 23
+                              last_seen: '2026-09-17T02:20:22Z'
+                        exchanges:
+                        - key: betfair_exchange
+                          name: Betfair Exchange
+                          sports:
+                            horse_racing:
+                              events: 39
+                              last_seen: '2026-09-17T02:20:18Z'
+                      extra-place:
+                        bookmakers:
+                        - key: bet600
+                          name: Bet600
+                          sports:
+                            horse_racing:
+                              events: 5
+                              last_seen: '2026-09-17T02:20:22Z'
+                        exchanges:
+                        - key: betfair_exchange
+                          name: Betfair Exchange
+                          sports:
+                            horse_racing:
+                              events: 14
+                              last_seen: '2026-09-17T02:20:18Z'
+                      raw:
+                        bookmakers:
+                        - key: 7bet
+                          name: 7bet
+                          sports:
+                            american_football:
+                              events: 71
+                              last_seen: '2026-09-17T02:20:14Z'
+                            aussie_rules:
+                              events: 11
+                              last_seen: '2026-09-17T02:20:18Z'
+                        exchanges:
+                        - key: betdaq
+                          name: Betdaq
+                          sports:
+                            american_football:
+                              events: 69
+                              last_seen: '2026-09-17T02:20:21Z'
+                            aussie_rules:
+                              events: 2
+                              last_seen: '2026-09-17T02:20:21Z'
+                      standard:
+                        bookmakers:
+                        - key: 7bet
+                          name: 7bet
+                          sports:
+                            american_football:
+                              events: 71
+                              last_seen: '2026-09-17T02:20:14Z'
+                            baseball:
+                              events: 16
+                              last_seen: '2026-09-17T02:20:24Z'
+                        exchanges:
+                        - key: betdaq
+                          name: Betdaq
+                          sports:
+                            american_football:
+                              events: 69
+                              last_seen: '2026-09-17T02:20:21Z'
+                            aussie_rules:
+                              events: 2
+                              last_seen: '2026-09-17T02:20:21Z'
+                  description: Trimmed from a live reply.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+          description: 'Unknown or repeated parameter, a region list, repeat or uppercase code. Keyed: `region_required`.'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: '`missing_api_key`, `invalid_api_key` (also a closed account), `revoked_api_key`, `expired_api_key`, `paused_api_key`.'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+          description: 'Keyed only: `account_suspended`, `origin_not_allowed`, `region_not_in_scope`.'
+        '404':
+          $ref: '#/components/responses/NotFound'
+          description: '`unknown_region`.'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+          description: '`too_many_from_address`, then after authentication `too_many_requests`; the front door''s own caps answer an empty-bodied 429.'
+        '500':
+          $ref: '#/components/responses/InternalError'
+          description: '`internal_error`.'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+          description: '`temporarily_unavailable`.'
+        '502':
+          $ref: '#/components/responses/FrontDoorError'
+      security:
+      - {}
+      - bearerAuth: []
+      - apiKeyHeader: []
+      x-keyless: true
+    servers:
+    - url: https://api.oddsrelay.io
+  /v2/status:
+    get:
+      operationId: getStatus
+      summary: Product status, keyless
+      description: 'Per product the region serves: `ok`, `slow` or `stale`, judged on each board''s odds age (not servable or not held is `stale`). While boards warm every product reads `stale` in a 200. KEYLESS: the per-address shield only, a key header is ignored, no token is spent. `Cache-Control: public, max-age=10` on a 200; `Access-Control-Allow-Origin: *` on every reply, refusals and errors included. Plain JSON (never gzip).'
+      tags:
+      - Service
+      parameters:
+      - $ref: '#/components/parameters/region'
+      responses:
+        '200':
+          description: The status.
+          headers:
+            X-OddsRelay-Api-Version:
+              description: 'Always sent: #/components/headers/X-OddsRelay-Api-Version'
+              required: true
+              schema:
+                type: string
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              description: 'Always sent: #/components/headers/Access-Control-Allow-Origin'
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+              examples:
+                status:
+                  summary: GET /v2/status
+                  value:
+                    region: uk
+                    generated_at: '2026-09-17T02:20:30Z'
+                    products:
+                      standard: ok
+                      2up: ok
+                      dutching: ok
+                      each-way: ok
+                      extra-place: ok
+                      bog: ok
+                      raw: ok
+                  description: A live reply.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+          description: Unknown or repeated parameter, a region list, repeat or uppercase code.
+        '404':
+          $ref: '#/components/responses/NotFound'
+          description: '`unknown_region`.'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+          description: '`too_many_from_address`; the front door''s own caps answer an empty-bodied 429.'
+        '500':
+          $ref: '#/components/responses/InternalError'
+          description: '`internal_error`.'
+        '502':
+          $ref: '#/components/responses/FrontDoorError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+          description: '`temporarily_unavailable` (a region other than `uk` while boards warm).'
+      security: []
+      x-keyless: true
+    servers:
+    - url: https://api.oddsrelay.io
+  /v2/health:
+    get:
+      operationId: getHealth
+      summary: Board freshness
+      description: 'Each board''s `processed_at`, odds age (`age_s`) and event `count`, and a verdict: `degraded` when a board is past the age bound or cannot be served. Always HTTP 200 whatever the verdict. Free. Plain JSON.'
+      tags:
+      - Service
+      parameters: []
+      responses:
+        '200':
+          description: The boards.
+          headers:
+            X-OddsRelay-Api-Version:
+              description: 'Always sent: #/components/headers/X-OddsRelay-Api-Version'
+              required: true
+              schema:
+                type: string
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+            Vary:
+              description: 'Always sent: #/components/headers/Vary'
+              required: true
+              schema:
+                type: string
+            X-RateLimit-Limit:
+              description: 'Always sent: #/components/headers/X-RateLimit-Limit'
+              required: true
+              schema:
+                type: string
+                pattern: ^[0-9]+$
+            X-RateLimit-Remaining:
+              description: 'Always sent: #/components/headers/X-RateLimit-Remaining'
+              required: true
+              schema:
+                type: string
+                pattern: ^[0-9]+$
+            X-RateLimit-Reset:
+              description: 'Always sent: #/components/headers/X-RateLimit-Reset'
+              required: true
+              schema:
+                type: string
+                pattern: ^[0-9]+$
+            X-Tokens-Cost:
+              description: 'Always sent: #/components/headers/X-Tokens-Cost'
+              required: true
+              schema:
+                type: string
+                pattern: ^[0-9]+$
+            X-Tokens-Used:
+              $ref: '#/components/headers/X-Tokens-Used'
+            X-Tokens-Remaining:
+              $ref: '#/components/headers/X-Tokens-Remaining'
+            X-Tokens-Limit:
+              $ref: '#/components/headers/X-Tokens-Limit'
+            X-Tokens-Reset:
+              $ref: '#/components/headers/X-Tokens-Reset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              examples:
+                health:
+                  summary: GET /v2/health
+                  value:
+                    status: ok
+                    version: v2
+                    boards:
+                      bog:
+                        processed_at: '2026-09-17T02:20:28.456Z'
+                        age_s: 4.1
+                        count: 39
+                      dutching:
+                        processed_at: '2026-09-17T02:20:26.250Z'
+                        age_s: 6.2
+                        count: 4577
+                      each-way:
+                        processed_at: '2026-09-17T02:20:28.456Z'
+                        age_s: 4.1
+                        count: 39
+                      extra-place:
+                        processed_at: '2026-09-17T02:20:28.456Z'
+                        age_s: 4.1
+                        count: 14
+                      standard:
+                        processed_at: '2026-09-17T02:20:29.403Z'
+                        age_s: 3.1
+                        count: 1306
+                      2up:
+                        processed_at: '2026-09-17T02:20:28.456Z'
+                        age_s: 4.1
+                        count: 477
+                      raw:
+                        processed_at: '2026-09-17T02:20:30.254Z'
+                        age_s: 2.2
+                        count: 12248
+                  description: A live reply.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+          description: Unknown or repeated parameter.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: '`missing_api_key`, `invalid_api_key` (also a closed account), `revoked_api_key`, `expired_api_key`, `paused_api_key`.'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+          description: '`account_suspended`, `origin_not_allowed`.'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+          description: '`too_many_from_address`, then after authentication `too_many_requests`; the front door''s own caps answer an empty-bodied 429.'
+        '500':
+          $ref: '#/components/responses/InternalError'
+          description: '`internal_error`.'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+          description: '`temporarily_unavailable`.'
+        '502':
+          $ref: '#/components/responses/FrontDoorError'
+    servers:
+    - url: https://api.oddsrelay.io
+  /v2/openapi.json:
+    get:
+      operationId: getOpenApi
+      summary: This document, keyless
+      description: 'This OpenAPI document. KEYLESS: the per-address shield only, a key header is ignored, no token is spent. `ETag` is its SHA-256 (`-gz` on the gzip copy); 304 on a match; gzip unless refused; `Cache-Control: public, max-age=300`; `Access-Control-Allow-Origin: *` on every reply, refusals and errors included. Takes no parameters.'
+      tags:
+      - Service
+      parameters: []
+      responses:
+        '200':
+          description: This document.
+          headers:
+            X-OddsRelay-Api-Version:
+              description: 'Always sent: #/components/headers/X-OddsRelay-Api-Version'
+              required: true
+              schema:
+                type: string
+            ETag:
+              description: 'Always sent: #/components/headers/ETag'
+              required: true
+              schema:
+                type: string
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+            Vary:
+              description: 'Always sent: #/components/headers/Vary'
+              required: true
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              description: 'Always sent: #/components/headers/Access-Control-Allow-Origin'
+              required: true
+              schema:
+                type: string
+            Content-Encoding:
+              $ref: '#/components/headers/Content-Encoding'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiDocument'
+        '304':
+          description: 'Not modified: no body.'
+          headers:
+            X-OddsRelay-Api-Version:
+              description: 'Always sent: #/components/headers/X-OddsRelay-Api-Version'
+              required: true
+              schema:
+                type: string
+            ETag:
+              description: 'Always sent: #/components/headers/ETag'
+              required: true
+              schema:
+                type: string
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+            Vary:
+              description: 'Always sent: #/components/headers/Vary'
+              required: true
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              description: 'Always sent: #/components/headers/Access-Control-Allow-Origin'
+              required: true
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+          description: Any parameter.
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+          description: '`too_many_from_address`; the front door''s own caps answer an empty-bodied 429.'
+        '500':
+          $ref: '#/components/responses/InternalError'
+          description: '`internal_error`, also when the document cannot be read.'
+        '502':
+          $ref: '#/components/responses/FrontDoorError'
+      security: []
+      x-keyless: true
+    servers:
+    - url: https://api.oddsrelay.io
+  /healthz:
+    get:
+      operationId: getLiveness
+      summary: Liveness, keyless
+      description: 'Is the service up. KEYLESS and before every other check. `text/plain`, `Cache-Control: no-store`: the first line is `ok` (200) or `warming` (503), then how many boards can be served and any that cannot. Liveness only: board freshness is `/v2/health` and `/v2/status`.'
+      tags:
+      - Service
+      parameters: []
+      responses:
+        '200':
+          description: Up.
+          headers:
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 'ok
+
+                boards: 6/6 servable
+
+                liveness only - the feed''s health verdict is /v2/health
+
+                '
+        '503':
+          description: 'Starting: the first line is `warming`.'
+          headers:
+            Cache-Control:
+              description: 'Always sent: #/components/headers/Cache-Control'
+              required: true
+              schema:
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
+        '502':
+          $ref: '#/components/responses/FrontDoorError'
+      security: []
+      x-keyless: true
+    servers:
+    - url: https://api.oddsrelay.io
+components:
+  examples:
+    raw_not_enabled:
+      summary: Raw board not held
+      value:
+        error:
+          code: raw_not_enabled
+          message: The raw feed is not enabled on this deployment.
+          request_id: or_req_00000000000000000000000000000000
+    too_many_from_address:
+      summary: The per-address shield
+      value:
+        error:
+          code: too_many_from_address
+          message: Too many requests from this address.
+          request_id: or_req_00000000000000000000000000000000
+    too_many_requests:
+      summary: The account's flood cap
+      value:
+        error:
+          code: too_many_requests
+          message: Too many requests for this account.
+          request_id: or_req_00000000000000000000000000000000
+    not_in_key_scope:
+      summary: Product outside the key
+      value:
+        error:
+          code: not_in_key_scope
+          message: This key does not include 'raw'.
+          request_id: or_req_00000000000000000000000000000000
+          type: product
+    invalid_api_key:
+      summary: Key not recognised
+      value:
+        error:
+          code: invalid_api_key
+          message: API key not recognised.
+          request_id: or_req_00000000000000000000000000000000
+    account_suspended:
+      summary: Suspended account
+      value:
+        error:
+          code: account_suspended
+          message: This account is suspended because of a payment problem.
+          request_id: or_req_00000000000000000000000000000000
+          reason: payment
+          dashboard_url: https://app.oddsrelay.io/billing
+    unknown_sport:
+      summary: Unknown sport (valid trimmed)
+      value:
+        error:
+          code: unknown_sport
+          message: 'Unknown sport ''curling_xyz''. A sport or a competition key: full list: /v2/sports.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - american_football
+          - aussie_rules
+          - badminton
+          - baseball
+          - basketball
+          - boxing
+    unknown_bookmaker:
+      summary: Unknown bookmaker (valid trimmed)
+      value:
+        error:
+          code: unknown_bookmaker
+          message: Unknown bookmaker 'nope'.
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - 7bet
+          - 888sport
+          - bet365
+          - bet600
+          - bet_target
+          - betano
+    missing_api_key:
+      summary: No key
+      value:
+        error:
+          code: missing_api_key
+          message: 'No API key presented. Send Authorization: Bearer or_live_… or x-api-key.'
+          request_id: or_req_00000000000000000000000000000000
+    paused_api_key:
+      summary: Paused key
+      value:
+        error:
+          code: paused_api_key
+          message: This API key is paused.
+          request_id: or_req_00000000000000000000000000000000
+    expired_api_key:
+      summary: Expired key
+      value:
+        error:
+          code: expired_api_key
+          message: This API key has expired.
+          request_id: or_req_00000000000000000000000000000000
+    bad_request_cursor:
+      summary: Expired cursor
+      value:
+        error:
+          code: bad_request
+          message: 'cursor expired: start again from the first page'
+          request_id: or_req_00000000000000000000000000000000
+    product_not_in_region:
+      summary: Product the region does not serve
+      value:
+        error:
+          code: product_not_in_region
+          message: Region 'za' does not serve 'standard'.
+          request_id: or_req_00000000000000000000000000000000
+          type: product
+    region_required:
+      summary: No region and the key lacks uk
+      value:
+        error:
+          code: region_required
+          message: This key does not cover uk, the region a call without ?region= reads. Add ?region=za (one of your key's regions).
+          request_id: or_req_00000000000000000000000000000000
+    sport_not_in_plan:
+      summary: Sport outside the account's scope
+      value:
+        error:
+          code: sport_not_in_plan
+          message: '''tennis'' is not in your plan''s sports for standard: ''valid'' lists them. GET /v2/usage shows your account''s scope.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - horse_racing
+          - soccer
+    not_found:
+      summary: No such route
+      value:
+        error:
+          code: not_found
+          message: No such endpoint.
+          request_id: or_req_00000000000000000000000000000000
+    unknown_event:
+      summary: Event not on the raw board
+      value:
+        error:
+          code: unknown_event
+          message: No such event 'or_evt_000000000000'.
+          request_id: or_req_00000000000000000000000000000000
+    bookmaker_not_in_region:
+      summary: Venue outside the region
+      value:
+        error:
+          code: bookmaker_not_in_region
+          message: '''william_hill'' is not a venue in region ''za'': GET /v2/bookmakers lists each venue''s regions.'
+          request_id: or_req_00000000000000000000000000000000
+          type: region
+    region_not_in_scope:
+      summary: Region outside the key
+      value:
+        error:
+          code: region_not_in_scope
+          message: Key not scoped for region 'za'.
+          request_id: or_req_00000000000000000000000000000000
+          type: region
+    bad_request_param:
+      summary: Unknown parameter
+      value:
+        error:
+          code: bad_request
+          message: 'Unknown parameter ''foo'': /v2/odds/{type} accepts bookmakers, commenceTimeFrom, commenceTimeTo, dateFormat, exchanges, format, markets, oddsFormat, quote, region, sports.'
+          request_id: or_req_00000000000000000000000000000000
+    market_not_in_plan:
+      summary: Market outside the account's scope
+      value:
+        error:
+          code: market_not_in_plan
+          message: '''double_chance'' is not in your plan''s markets for standard: ''valid'' lists them. GET /v2/usage shows your account''s scope.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - btts
+          - h2h
+          - totals
+    unknown_market:
+      summary: Unknown market on this product, carried by others (valid trimmed)
+      value:
+        error:
+          code: unknown_market
+          message: 'Unknown market ''each_way''. Carried by: /v2/odds/each-way, /v2/odds/extra-place.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - 1st_half_away_team_total_goals
+          - 1st_half_away_team_total_points
+          - 1st_half_btts
+          - 1st_half_correct_score
+          - 1st_half_double_chance
+          - 1st_half_handicap_goals
+          products:
+          - each-way
+          - extra-place
+    exchange_not_in_plan:
+      summary: Exchange outside the account's scope
+      value:
+        error:
+          code: exchange_not_in_plan
+          message: '''smarkets'' is not in your plan''s exchanges for standard: ''valid'' lists the ones it serves in this region. GET /v2/usage shows your account''s scope.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - betfair_exchange
+    internal_error:
+      summary: Internal error
+      value:
+        error:
+          code: internal_error
+          message: Internal error.
+          request_id: or_req_00000000000000000000000000000000
+    schema_not_in_scope:
+      summary: Key pinned to another API version
+      value:
+        error:
+          code: schema_not_in_scope
+          message: Key not scoped for the 'v2' API. Use the version your key is scoped to.
+          request_id: or_req_00000000000000000000000000000000
+          type: schema
+    temporarily_unavailable:
+      summary: Board or registry not ready
+      value:
+        error:
+          code: temporarily_unavailable
+          message: Feed temporarily unavailable.
+          request_id: or_req_00000000000000000000000000000000
+    unknown_exchange:
+      summary: A bookmaker named in exchanges
+      value:
+        error:
+          code: unknown_exchange
+          message: 'Unknown exchange ''william_hill''. ''william_hill'' is a bookmaker: use bookmakers=william_hill.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - betdaq
+          - betfair_exchange
+          - matchbook
+          - smarkets
+    revoked_api_key:
+      summary: Revoked key
+      value:
+        error:
+          code: revoked_api_key
+          message: This API key has been revoked.
+          request_id: or_req_00000000000000000000000000000000
+    missing_param:
+      summary: Required parameter missing
+      value:
+        error:
+          code: missing_param
+          message: Required query parameter 'sport' is missing.
+          request_id: or_req_00000000000000000000000000000000
+    bad_request_gzip:
+      summary: Gzip refused on standard, dutching or raw
+      value:
+        error:
+          code: bad_request
+          message: 'add Accept-Encoding: gzip; with curl use --compressed'
+          request_id: or_req_00000000000000000000000000000000
+    unknown_region:
+      summary: Unknown region
+      value:
+        error:
+          code: unknown_region
+          message: Unknown region 'zz'.
+          request_id: or_req_00000000000000000000000000000000
+    bookmaker_not_in_plan:
+      summary: Venue outside the plan's bookmakers
+      value:
+        error:
+          code: bookmaker_not_in_plan
+          message: '''coral'' is not in your plan''s bookmakers: ''valid'' lists the ones it serves in this region.'
+          request_id: or_req_00000000000000000000000000000000
+          valid:
+          - bet365
+          - william_hill
+    unknown_type:
+      summary: Unknown board
+      value:
+        error:
+          code: unknown_type
+          message: Unknown feed type 'nope'.
+          request_id: or_req_00000000000000000000000000000000
+    origin_not_allowed:
+      summary: Browser key off its website
+      value:
+        error:
+          code: origin_not_allowed
+          message: This key may not be used from this website.
+          request_id: or_req_00000000000000000000000000000000
+  responses:
+    FrontDoorError:
+      description: '502 from the front door when the API behind it does not answer: an empty body, no `code`. Retry with backoff.'
+    TooManyRequests:
+      description: '429 with `Retry-After`. `too_many_requests`: the account''s flood cap or its in-flight cap (with `X-RateLimit-*`). `too_many_from_address`: the per-address shield, before authentication (no token or flood-cap headers). The front door''s own per-address and global caps also answer 429 with `Retry-After`, but with an EMPTY body and no `code`.'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        Retry-After:
+          description: 'Seconds to wait before retrying: on every 429 and 503. A 402 never carries it.'
+          required: true
+          schema:
+            type: string
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429'
+          examples:
+            too_many_requests:
+              $ref: '#/components/examples/too_many_requests'
+            too_many_from_address:
+              $ref: '#/components/examples/too_many_from_address'
+    Unauthorized:
+      description: '401: no key, or a key that is not accepted. Carries `WWW-Authenticate`; no token or flood-cap headers.'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        WWW-Authenticate:
+          description: On every 401.
+          required: true
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401'
+          examples:
+            missing_api_key:
+              $ref: '#/components/examples/missing_api_key'
+            invalid_api_key:
+              $ref: '#/components/examples/invalid_api_key'
+            revoked_api_key:
+              $ref: '#/components/examples/revoked_api_key'
+            expired_api_key:
+              $ref: '#/components/examples/expired_api_key'
+            paused_api_key:
+              $ref: '#/components/examples/paused_api_key'
+    ServiceUnavailable:
+      description: '503 with `Retry-After`: `temporarily_unavailable` (a board, the key registry or a connection is not ready; retry) or `raw_not_enabled` (the key may use raw but the raw board is not held here).'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        Retry-After:
+          description: 'Seconds to wait before retrying: on every 429 and 503. A 402 never carries it.'
+          required: true
+          schema:
+            type: string
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error503'
+          examples:
+            temporarily_unavailable:
+              $ref: '#/components/examples/temporarily_unavailable'
+            raw_not_enabled:
+              $ref: '#/components/examples/raw_not_enabled'
+    BadRequest:
+      description: '400: a parameter this route does not read or sent twice, a malformed value, gzip refused on standard, dutching or raw, or a filter value the catalogue does not know.'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400'
+          examples:
+            bad_request_param:
+              $ref: '#/components/examples/bad_request_param'
+            bad_request_gzip:
+              $ref: '#/components/examples/bad_request_gzip'
+            bad_request_cursor:
+              $ref: '#/components/examples/bad_request_cursor'
+            missing_param:
+              $ref: '#/components/examples/missing_param'
+            region_required:
+              $ref: '#/components/examples/region_required'
+            unknown_sport:
+              $ref: '#/components/examples/unknown_sport'
+            unknown_market:
+              $ref: '#/components/examples/unknown_market'
+            unknown_bookmaker:
+              $ref: '#/components/examples/unknown_bookmaker'
+            unknown_exchange:
+              $ref: '#/components/examples/unknown_exchange'
+    InternalError:
+      description: 500 `internal_error`. If it came after a spend, `X-Tokens-Cost` reads 0 and the spend stands.
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500'
+          examples:
+            internal_error:
+              $ref: '#/components/examples/internal_error'
+    Forbidden:
+      description: '403: the account, the key''s scope, the region, the plan or the account''s scope refuses this call.'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error403'
+          examples:
+            account_suspended:
+              $ref: '#/components/examples/account_suspended'
+            not_in_key_scope:
+              $ref: '#/components/examples/not_in_key_scope'
+            product_not_in_region:
+              $ref: '#/components/examples/product_not_in_region'
+            origin_not_allowed:
+              $ref: '#/components/examples/origin_not_allowed'
+            region_not_in_scope:
+              $ref: '#/components/examples/region_not_in_scope'
+            bookmaker_not_in_region:
+              $ref: '#/components/examples/bookmaker_not_in_region'
+            bookmaker_not_in_plan:
+              $ref: '#/components/examples/bookmaker_not_in_plan'
+            sport_not_in_plan:
+              $ref: '#/components/examples/sport_not_in_plan'
+            market_not_in_plan:
+              $ref: '#/components/examples/market_not_in_plan'
+            exchange_not_in_plan:
+              $ref: '#/components/examples/exchange_not_in_plan'
+            schema_not_in_scope:
+              $ref: '#/components/examples/schema_not_in_scope'
+    NotFound:
+      description: '404.'
+      headers:
+        X-OddsRelay-Api-Version:
+          description: The API version label, equal to this document's `info.version`. On every reply but `/healthz`, a `HEAD`'s 405 and the empty-bodied 429s and 502.
+          required: true
+          schema:
+            type: string
+        X-OddsRelay-Request-Id:
+          description: 'This request''s id (`or_req_` + 32 hex), the same value as an error body''s `request_id`: quote it when you contact us. On data and discovery 200s, quotes, `/v2/usage` and `/v2/pricing` 200s and every JSON error but a 405; not on 304s, `/v2/health`, `/v2/regions`, `/v2/coverage` 200s or `/v2/odds/event/{id}` 200s.'
+          required: true
+          schema:
+            type: string
+        Vary:
+          $ref: '#/components/headers/Vary'
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        X-Tokens-Cost:
+          $ref: '#/components/headers/X-Tokens-Cost'
+        X-Tokens-Used:
+          $ref: '#/components/headers/X-Tokens-Used'
+        X-Tokens-Remaining:
+          $ref: '#/components/headers/X-Tokens-Remaining'
+        X-Tokens-Limit:
+          $ref: '#/components/headers/X-Tokens-Limit'
+        X-Tokens-Reset:
+          $ref: '#/components/headers/X-Tokens-Reset'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/Access-Control-Allow-Origin'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error404'
+          examples:
+            unknown_region:
+              $ref: '#/components/examples/unknown_region'
+            unknown_type:
+              $ref: '#/components/examples/unknown_type'
+            unknown_event:
+              $ref: '#/components/examples/unknown_event'
+            not_found:
+              $ref: '#/components/examples/not_found'
+  schemas:
+    Error400:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - bad_request
+                - missing_param
+                - region_required
+                - unknown_sport
+                - unknown_market
+                - unknown_bookmaker
+                - unknown_exchange
+    OpenApiDocument:
+      type: object
+      required:
+      - openapi
+      - info
+      - paths
+      description: This document.
+    Error500:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - internal_error
+    Error403:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - account_suspended
+                - not_in_key_scope
+                - product_not_in_region
+                - origin_not_allowed
+                - region_not_in_scope
+                - bookmaker_not_in_region
+                - bookmaker_not_in_plan
+                - sport_not_in_plan
+                - market_not_in_plan
+                - exchange_not_in_plan
+                - schema_not_in_scope
+    Error429:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - too_many_requests
+                - too_many_from_address
+    ErrorBody:
+      type: object
+      required:
+      - error
+      description: Every JSON 4xx and 5xx this API writes.
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - request_id
+          properties:
+            code:
+              type: string
+              description: Stable machine code; branch on this, never on `message`.
+            message:
+              type: string
+              description: Human text; may change.
+            request_id:
+              type: string
+              description: '`or_req_` + 32 hex, as `X-OddsRelay-Request-Id`.'
+            type:
+              type: string
+              enum:
+              - product
+              - region
+              - schema
+              description: 'Scope 403s only: which axis refused (`not_in_key_scope` and `product_not_in_region` product; `region_not_in_scope` and `bookmaker_not_in_region` region; `schema_not_in_scope` schema).'
+            valid:
+              type: array
+              items:
+                type: string
+              description: '`unknown_sport` (sport key bases), `unknown_bookmaker`, `unknown_exchange`, `bookmaker_not_in_plan` (your plan''s bookmakers, or your account scope''s, in the call''s region), `sport_not_in_plan`, `market_not_in_plan` and `exchange_not_in_plan` (the scope''s list for that product): the values accepted, sorted. `unknown_market`: the market keys this product carries, sorted (keyless `/v2/coverage`''s `markets`); a key another product carries may also be accepted on this route, and matches nothing here.'
+            products:
+              type: array
+              items:
+                type: string
+              description: '`unknown_market` only, when another product carries the market: those products, sorted, as the `{type}` of `/v2/odds/{type}` (or `raw`). Left out when no product carries it.'
+            reason:
+              type: string
+              enum:
+              - payment
+              - terms
+              description: '`account_suspended` only.'
+            dashboard_url:
+              type: string
+              description: '`account_suspended` only.'
+    Error401:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - missing_api_key
+                - invalid_api_key
+                - revoked_api_key
+                - expired_api_key
+                - paused_api_key
+    Error404:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - not_found
+                - unknown_type
+                - unknown_region
+                - unknown_event
+    Health:
+      type: object
+      required:
+      - status
+      - version
+      - boards
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - degraded
+          description: '`degraded` when a board is past the age bound (`stale_boards`) or cannot be served (`missing_boards`). Still HTTP 200.'
+        version:
+          type: string
+        boards:
+          type: object
+          additionalProperties:
+            type: object
+            required:
+            - processed_at
+            - age_s
+            - count
+            properties:
+              processed_at:
+                type:
+                - string
+                - 'null'
+              age_s:
+                type:
+                - number
+                - 'null'
+                description: The board's odds age, seconds.
+              count:
+                type:
+                - integer
+                - 'null'
+                description: Events.
+        stale_boards:
+          type: array
+          items:
+            type: string
+        max_board_age_s:
+          type: number
+        missing_boards:
+          type: array
+          items:
+            type: string
+    CoverageSummary:
+      type: object
+      required:
+      - region
+      - generated_at
+      - products
+      - markets
+      description: The keyless view.
+      properties:
+        region:
+          type: string
+        generated_at:
+          type: string
+        products:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              required:
+              - bookmaker
+              - sport
+              - status
+              properties:
+                bookmaker:
+                  type: string
+                  description: Venue key, bookmakers then exchanges.
+                sport:
+                  type: string
+                  description: Sport key base.
+                status:
+                  type: string
+                  enum:
+                  - live
+                  - interrupted_24h
+                  description: '`live`: we are publishing odds for this venue and sport right now. `interrupted_24h`: we are not — no rows at this instant, or the venue''s feed is interrupted now; it was publishing within the last 24 hours, which is why it is listed at all.'
+        markets:
+          type: object
+          description: 'Per product the region serves, the market keys it carries, sorted: each one a value that product''s `markets` filter takes while this document is current (2up, each-way, extra-place and bog carry one each). A key under one product and not another is 400 `unknown_market` on the other''s route when that route does not know it, naming the products that carry it in `products`.'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Status:
+      type: object
+      required:
+      - region
+      - generated_at
+      - products
+      properties:
+        region:
+          type: string
+        generated_at:
+          type: string
+          description: ISO-8601 UTC, whole seconds.
+        products:
+          type: object
+          description: The products served in the region, in canonical order.
+          additionalProperties:
+            type: string
+            enum:
+            - ok
+            - slow
+            - stale
+    Error503:
+      allOf:
+      - $ref: '#/components/schemas/ErrorBody'
+      - type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - temporarily_unavailable
+                - raw_not_enabled
+    CoverageKeyed:
+      type: object
+      required:
+      - region
+      - generated_at
+      - products
+      description: 'The keyed view: your key''s products the region serves.'
+      properties:
+        region:
+          type: string
+        generated_at:
+          type: string
+        products:
+          type: object
+          additionalProperties:
+            type: object
+            required:
+            - bookmakers
+            - exchanges
+            properties:
+              bookmakers:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - key
+                  - name
+                  - sports
+                  properties:
+                    key:
+                      type: string
+                    name:
+                      type: string
+                    sports:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        required:
+                        - events
+                        properties:
+                          events:
+                            type: integer
+                          last_seen:
+                            type:
+                            - string
+                            - 'null'
+                            description: The last instant this venue and sport was read (ISO-8601 Z); null when not known.
+              exchanges:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - key
+                  - name
+                  - sports
+                  properties:
+                    key:
+                      type: string
+                    name:
+                      type: string
+                    sports:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        required:
+                        - events
+                        properties:
+                          events:
+                            type: integer
+                          last_seen:
+                            type:
+                            - string
+                            - 'null'
+                            description: The last instant this venue and sport was read (ISO-8601 Z); null when not known.
+  headers:
+    X-Tokens-Cost:
+      description: 'Tokens this reply cost: 0 on a free reply (304, an empty reply, discovery, `/v2/usage`, `/v2/pricing`, a quote and every refusal). On every reply to a valid key, refusals included; never on a 401, on the per-address 429 or on a keyless route.'
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    X-RateLimit-Limit:
+      description: The account's flood cap for the window with fewer requests left (per 10 seconds or per minute; your numbers are in `/v2/usage` `flood_cap`). On every reply to a valid key after authentication, 429 `too_many_requests` included; never on a 401, the per-address 429 or a keyless route.
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    Vary:
+      description: 'Keyed replies: `Authorization, Accept-Encoding, Origin`. Keyless `/v2/coverage`: `Authorization, X-Api-Key, Accept-Encoding`. `/v2/openapi.json`: `Accept-Encoding`. JSON errors on `/v2` routes: `Origin`.'
+      schema:
+        type: string
+      example: Authorization, Accept-Encoding, Origin
+    Access-Control-Allow-Origin:
+      description: '`*` on every GET reply of a keyless route (`/v2/status`, keyless `/v2/coverage`, `/v2/openapi.json`), refusals and errors included. A keyed reply never sends `*`: a browser or dashboard key''s reply echoes the exact request `Origin` when the key allows it, with `Access-Control-Expose-Headers`.'
+      schema:
+        type: string
+      example: '*'
+    X-RateLimit-Remaining:
+      description: Requests left in that window.
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    Content-Encoding:
+      description: '`gzip` when the body is gzip (see the gzip rules in the description).'
+      schema:
+        type: string
+        enum:
+        - gzip
+      example: gzip
+    X-Tokens-Remaining:
+      description: Tokens left this period, or `unlimited` on an unlimited account. Sent when the balance is known.
+      schema:
+        type: string
+        pattern: ^([0-9]+|unlimited)$
+      example: unlimited
+    X-RateLimit-Reset:
+      description: Seconds until that window ends.
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+    X-Tokens-Limit:
+      description: The account's tokens for the period, or `unlimited`. Sent when the balance is known.
+      schema:
+        type: string
+        pattern: ^([0-9]+|unlimited)$
+      example: unlimited
+    X-Tokens-Reset:
+      description: When the pool resets (ISO-8601 UTC, whole seconds); on a trial, the trial's end when that comes first. Sent when the balance is known.
+      schema:
+        type: string
+      example: '2026-10-01T00:00:00Z'
+    X-Tokens-Used:
+      description: Tokens the account has used this period. Sent with the other balance headers whenever the balance is known (while the key registry is unreachable a reply can carry `X-Tokens-Cost` alone).
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+  parameters:
+    region:
+      name: region
+      in: query
+      description: 'ONE lowercase region code (`/v2/regions` lists yours). Missing means `uk`: on a data route only when your key covers `uk`, else 400 `region_required` naming a code your key has; on discovery and keyless routes always. A comma list, the parameter sent twice or an uppercase code is 400 `bad_request`; an unknown code, or one with no live bookmaker here, is 404 `unknown_region`.'
+      required: false
+      schema:
+        type: string
+      example: uk
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: '`Authorization: Bearer or_live_…`'
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: The same key in `x-api-key`.
+x-refined-from:
+- oddsrelay-openapi.json
+- oddsrelay-openapi.yml

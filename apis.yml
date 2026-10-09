@@ -1,29 +1,220 @@
 aid: oddsrelay
 name: OddsRelay
-description: 'OddsRelay is a company surfaced via the API Evangelist harvest backlog (source: new-submission)
-  and added to the network as a stub for full-pipeline profiling.'
+image: https://oddsrelay.io/og.png
+description: 'OddsRelay is a UK-based odds-data API for businesses, serving prices from 140+ bookmakers (60+ live in the UK & Ireland) through one keyed REST API: each bookmaker''s raw prices, and matched
+  feeds pairing every bookmaker back price with the best exchange lay price on Betfair, Smarkets, Matchbook and BETDAQ plus the liquidity at that lay. It is a data supplier, not an operator, and takes no
+  bets.'
 url: https://raw.githubusercontent.com/api-evangelist/oddsrelay/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:new-submission
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-09 (local-v5; was harvest)
 specificationVersion: '0.20'
 created: '2026-10-09'
 modified: '2026-10-09'
 tags:
 - Company
-apis: []
+- Sports Betting
+- Odds
+- Sports Data
+- Matched Betting
+- Data Feeds
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/oddsrelay-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/oddsrelay-rate-limits.yml
+- type: Plans
+  url: plans/oddsrelay-plans-pricing.yml
+- type: Spectral
+  url: rules/oddsrelay-rules.yml
+- type: JSONLD
+  url: json-ld/oddsrelay-context.jsonld
+- type: Vocabulary
+  url: vocabulary/oddsrelay-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/oddsrelay-data-model.yml
+- type: ChangeLog
+  url: changelog/oddsrelay-changelog.yml
+- type: Conventions
+  url: conventions/oddsrelay-conventions.yml
+- type: Security
+  url: security/oddsrelay-vulnerability-disclosure.yml
+- type: Lifecycle
+  url: lifecycle/oddsrelay-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/oddsrelay-error-codes.yml
+- type: ErrorCatalog
+  url: errors/oddsrelay-problem-types.yml
+- type: Conformance
+  url: conformance/oddsrelay-conformance.yml
+- type: LLMsTxt
+  url: llms/oddsrelay-llms.txt
+- type: SecurityTxt
+  url: well-known/oddsrelay-security.txt
+- type: WellKnown
+  url: well-known/oddsrelay-well-known.yml
+- type: Hosts
+  url: hosts/oddsrelay-hosts.yml
+- type: Vendors
+  url: vendors/oddsrelay-vendors.yml
+- type: SDKs
+  url: packages/oddsrelay-packages.yml
+- type: Packages
+  url: packages/oddsrelay-packages.yml
+- type: StatusPage
+  url: https://oddsrelay.io/status
+- type: DeveloperPortal
+  url: https://api.oddsrelay.io</span
+- type: Authentication
+  url: authentication/oddsrelay-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/oddsrelay-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/oddsrelay-domain-security.yml
 - type: Website
   url: https://oddsrelay.io
 - type: Documentation
   url: https://oddsrelay.io/docs
-x-submission-notes: 'Bookmaker + exchange odds data API | Kin approved listing 2026-10-09 (case-by-case:
-  Clean API with OpenAPI 3.1 but gambling-adjacent (betting odds / matched betting))'
+- type: APIReference
+  url: https://oddsrelay.io/docs/reference
+- type: Blog
+  url: https://oddsrelay.io/blog
+- type: ChangeLog
+  url: https://oddsrelay.io/docs/changelog
+- type: GettingStarted
+  url: https://oddsrelay.io/docs/guides/quickstart
+- type: Login
+  url: https://app.oddsrelay.io/login
+- type: Postman
+  url: https://oddsrelay.io/docs/oddsrelay.postman_collection.json
+- type: Pricing
+  url: https://oddsrelay.io/pricing
+- type: PrivacyPolicy
+  url: https://oddsrelay.io/privacy
+- type: SignUp
+  url: https://app.oddsrelay.io/signup
+- type: TermsOfService
+  url: https://oddsrelay.io/terms
+- type: GitHubOrganization
+  url: https://github.com/oddsrelay
+apis:
+- aid: oddsrelay:oddsrelay-account-api
+  name: OddsRelay Account API
+  description: Usage and prices. Free.
+  humanURL: https://oddsrelay.io/docs
+  baseURL: https://api.oddsrelay.io
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/oddsrelay-account-api-openapi.yml
+  - type: Documentation
+    url: https://oddsrelay.io/docs
+  - type: APIReference
+    url: https://oddsrelay.io/docs/reference
+  - type: JSONSchema
+    url: json-schema/oddsrelay-usage-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-raw-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-keyed-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-matched-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-regions-schema.json
+- aid: oddsrelay:oddsrelay-discovery-api
+  name: OddsRelay Discovery API
+  description: Sports, events, venues, regions. Free.
+  humanURL: https://oddsrelay.io/docs
+  baseURL: https://api.oddsrelay.io
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/oddsrelay-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://oddsrelay.io/docs
+  - type: APIReference
+    url: https://oddsrelay.io/docs/reference
+  - type: JSONSchema
+    url: json-schema/oddsrelay-usage-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-raw-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-keyed-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-matched-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-regions-schema.json
+- aid: oddsrelay:oddsrelay-odds-api
+  name: OddsRelay Odds API
+  description: Matched boards, raw, one event.
+  humanURL: https://oddsrelay.io/docs
+  baseURL: https://api.oddsrelay.io
+  tags:
+  - Odds
+  properties:
+  - type: OpenAPI
+    url: openapi/oddsrelay-odds-api-openapi.yml
+  - type: Documentation
+    url: https://oddsrelay.io/docs
+  - type: APIReference
+    url: https://oddsrelay.io/docs/reference
+  - type: JSONSchema
+    url: json-schema/oddsrelay-usage-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-raw-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-keyed-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-matched-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-regions-schema.json
+- aid: oddsrelay:oddsrelay-service-api
+  name: OddsRelay Service API
+  description: Coverage, status, health, liveness and this document.
+  humanURL: https://oddsrelay.io/docs
+  baseURL: https://api.oddsrelay.io
+  tags:
+  - Service
+  properties:
+  - type: OpenAPI
+    url: openapi/oddsrelay-service-api-openapi.yml
+  - type: Documentation
+    url: https://oddsrelay.io/docs
+  - type: APIReference
+    url: https://oddsrelay.io/docs/reference
+  - type: JSONSchema
+    url: json-schema/oddsrelay-usage-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-raw-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-coverage-keyed-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-matched-event-schema.json
+  - type: JSONSchema
+    url: json-schema/oddsrelay-regions-schema.json
+x-submission-notes: 'Bookmaker + exchange odds data API | Kin approved listing 2026-10-09 (case-by-case: Clean API with OpenAPI 3.1 but gambling-adjacent (betting odds / matched betting))'
 x-submission-probe: docs 200; /openapi.json OpenAPI 3.1 14 ops; invented path 404
 x-submitted-by: hello@oddsrelay.io (apis.io/add, 2026-10-08)
+x-enrichment:
+  date: '2026-10-09'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v5

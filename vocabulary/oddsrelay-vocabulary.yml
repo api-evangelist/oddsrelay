@@ -1,0 +1,149 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/oddsrelay-openapi.yml
+vocabulary:
+  name: OddsRelay Domain Vocabulary
+  description: 'Terms declared by OddsRelay''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-09'
+  terms:
+  - term: Odds
+    definition: Matched boards, raw, one event.
+    tags:
+    - Resource Group
+    source: openapi/oddsrelay-openapi.yml
+  - term: Discovery
+    definition: Sports, events, venues, regions. Free.
+    tags:
+    - Resource Group
+    source: openapi/oddsrelay-openapi.yml
+  - term: Account
+    definition: Usage and prices. Free.
+    tags:
+    - Resource Group
+    source: openapi/oddsrelay-openapi.yml
+  - term: Service
+    definition: Coverage, status, health, liveness and this document.
+    tags:
+    - Resource Group
+    source: openapi/oddsrelay-openapi.yml
+  - term: ErrorBody
+    definition: Every JSON 4xx and 5xx this API writes.
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/ErrorBody
+  - term: Error402
+    definition: 'Object declared by the contract with fields: error.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Error402
+  - term: Quote
+    definition: '`quote=true`: this request''s price. Free.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Quote
+  - term: MatchedMeta
+    definition: 'Object declared by the contract with fields: feed_type, region, odds_format, processed_at, last_seen, count, version, next_cursor.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/MatchedMeta
+  - term: MatchedEvent
+    definition: 'One fixture. Ids are opaque and stable across boards (one fixture is one id on every route), but not durable keys: a paired fixture
+      re-keys once when a higher-ranked exchange lists it.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/MatchedEvent
+  - term: MatchedOutcome
+    definition: 'Object declared by the contract with fields: name, point, back, lay.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/MatchedOutcome
+  - term: MatchedEnvelope
+    definition: 'Object declared by the contract with fields: meta, data.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/MatchedEnvelope
+  - term: RawOutcome
+    definition: A bookmaker quote is `{name, price}`; a venue quoting a lay side is `{name, back_price, lay_price, available}` (`available` left
+      out under `includeLiquidity=false`). No commission is applied.
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/RawOutcome
+  - term: RawEvent
+    definition: 'Object declared by the contract with fields: id, cluster_id, sport_key, sport_title, commence_time, home_team, away_team, bookmakers.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/RawEvent
+  - term: RawMeta
+    definition: 'Object declared by the contract with fields: feed_type, region, odds_format, processed_at, count, version, next_cursor, total,
+      board_version.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/RawMeta
+  - term: RawEnvelope
+    definition: 'Object declared by the contract with fields: meta, data.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/RawEnvelope
+  - term: PageMeta
+    definition: 'Object declared by the contract with fields: feed_type, region, odds_format, processed_at, count, version, next_cursor.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/PageMeta
+  - term: Sport
+    definition: 'Object declared by the contract with fields: key, group, title, description, active, has_outrights, regions, markets.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Sport
+  - term: Event
+    definition: 'Object declared by the contract with fields: id, sport_key, sport_title, commence_time, home_team, away_team, status, has_coverage.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Event
+  - term: Venue
+    definition: 'Object declared by the contract with fields: key, name, regions, is_exchange.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Venue
+  - term: Regions
+    definition: 'Object declared by the contract with fields: version, default_region, regions.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Regions
+  - term: Health
+    definition: 'Object declared by the contract with fields: status, version, boards, stale_boards, max_board_age_s, missing_boards.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Health
+  - term: Status
+    definition: 'Object declared by the contract with fields: region, generated_at, products.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Status
+  - term: CoverageSummary
+    definition: The keyless view.
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/CoverageSummary
+  - term: CoverageKeyed
+    definition: 'The keyed view: your key''s products the region serves.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/CoverageKeyed
+  - term: Usage
+    definition: 'Object declared by the contract with fields: plan, rate_card, account, tokens, regions, key, flood_cap, scope, scope_version.'
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/Usage
+  - term: PriceTable
+    definition: The price table the feed prices every call from, byte for byte. A call costs max(1, ceil(whole x each named filter's points /
+      100)).
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/PriceTable
+  - term: OpenApiDocument
+    definition: This document.
+    tags:
+    - Object
+    source: openapi/oddsrelay-openapi.yml#/components/schemas/OpenApiDocument

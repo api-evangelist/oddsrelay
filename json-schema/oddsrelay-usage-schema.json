@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/oddsrelay/main/json-schema/oddsrelay-usage-schema.json",
+  "title": "Usage",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/oddsrelay-openapi.yml#/components/schemas/Usage",
+  "type": "object",
+  "required": [
+    "plan",
+    "rate_card",
+    "account",
+    "tokens",
+    "regions",
+    "key",
+    "flood_cap",
+    "scope",
+    "scope_version"
+  ],
+  "properties": {
+    "plan": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rate_card": {
+      "type": "string"
+    },
+    "account": {
+      "type": "object",
+      "required": [
+        "status",
+        "suspension_reason",
+        "test"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "suspended"
+          ]
+        },
+        "suspension_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "test": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "required": [
+        "used",
+        "remaining",
+        "limit",
+        "resets_at"
+      ],
+      "properties": {
+        "used": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "remaining": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "limit": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "resets_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "When the pool resets; on a trial, the trial's end when that comes first."
+        }
+      },
+      "description": "`remaining` and `limit` read `unlimited` on an unlimited account; null while the balance is unknown."
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "key": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "products",
+        "regions",
+        "token_cap",
+        "tokens_used"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "server",
+            "browser",
+            "dashboard"
+          ]
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "token_cap": {
+          "type": "null"
+        },
+        "tokens_used": {
+          "type": "null"
+        }
+      }
+    },
+    "flood_cap": {
+      "type": "object",
+      "required": [
+        "per_10s",
+        "per_min"
+      ],
+      "properties": {
+        "per_10s": {
+          "type": "integer"
+        },
+        "per_min": {
+          "type": "integer"
+        }
+      }
+    },
+    "scope": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Your account's scope, or null when it has none: `{\"products\": {<product>: {<axis>: [values] | null}}}`. A product not listed is not readable; within one, a null axis means every value. The axes are each product's filters: `sports`, `markets`, `bookmakers`, `exchanges` on the six matched boards; `sports`, `markets`, `bookmakers` (venues of both kinds) on `raw`, which also answers `/v2/odds/event/{id}`. Products and axes are always listed in that order and each list sorted. A value a call names outside it is a 403 `*_not_in_plan` with `valid`; a filter left out is trimmed to it."
+    },
+    "scope_version": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "The version of `scope`, raised by each change; null when the account has no scope."
+    }
+  }
+}

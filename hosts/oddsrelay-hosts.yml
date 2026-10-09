@@ -1,0 +1,93 @@
+generated: '2026-10-09'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 5
+  own: 3
+  other_domain: 1
+  platform: 1
+  roles:
+  - api
+  - identity
+  - portal
+  - source
+  - website
+hosts:
+- host: api.oddsrelay.io
+  found_by:
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - spec-found
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  - docs
+  - spec
+  registrable_domain: oddsrelay.io
+  role: api
+  relation: own
+- host: api.oddsrelay.io<
+  found_by:
+  - pointer
+  types:
+  - DeveloperPortal
+  serves: []
+  registrable_domain: oddsrelay.io<
+  role: portal
+  relation: other-domain
+- host: app.oddsrelay.io
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - Login
+  - SignUp
+  serves: []
+  registrable_domain: oddsrelay.io
+  role: identity
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: oddsrelay.io
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - StatusPage
+  - Website
+  - Documentation
+  - APIReference
+  - Blog
+  - ChangeLog
+  - GettingStarted
+  - Postman
+  - Pricing
+  - PrivacyPolicy
+  - TermsOfService
+  serves:
+  - docs
+  - hosting
+  vendor: vercel
+  registrable_domain: oddsrelay.io
+  role: website
+  relation: own

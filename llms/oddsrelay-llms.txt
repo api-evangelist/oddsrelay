@@ -1,0 +1,92 @@
+# OddsRelay
+
+> The odds feed, raw or ready-matched. OddsRelay is a B2B odds-data supplier: 140+ bookmakers · 60+ live in the UK & Ireland, delivered as one keyed REST API at https://api.oddsrelay.io (version 2026-07-08).
+
+OddsRelay supplies odds data only and takes no bets. Customers license access to the data, never the methods behind it.
+
+## Docs
+
+- [API docs](https://oddsrelay.io/docs): quickstart, keys, regions, tokens, rate limits, gzip and 304s, errors
+- [API reference](https://oddsrelay.io/docs/reference): every route, rendered from the contract
+- [OpenAPI 3.1 contract](https://api.oddsrelay.io/v2/openapi.json): the machine-readable API description
+- [Example client](https://oddsrelay.io/docs/guides/quickstart.md): A complete client in cURL, Python and JavaScript: quote, call, read the token headers and poll with ETags.
+- [Tokens, quotes and rate limits](https://oddsrelay.io/docs/guides/filters-and-tokens.md): How a call is priced, how filters lower the price, and how to handle a 402 or a 429.
+- [Polling for fewer tokens](https://oddsrelay.io/docs/guides/polling-cheaply.md): Why a wide call rarely gets a free 304, and how filters, ETags and updatedSince cut what each poll costs.
+- [Filtering matched odds](https://oddsrelay.io/docs/guides/matched-board-filters.md): The sports, bookmakers, exchanges and markets filters, the kick-off window, and what a filtered reply leaves out.
+- [How fresh a price is](https://oddsrelay.io/docs/guides/freshness.md): The timestamps each reply carries and how to work out a price's age.
+- [Reading coverage](https://oddsrelay.io/docs/guides/coverage-method.md): What /v2/coverage returns with and without a key, and what live and interrupted mean.
+- [Paging through raw odds](https://oddsrelay.io/docs/guides/walking-raw.md): Page through raw odds with a cursor, handle expiry, and fetch only what changed.
+- [Polling with ETags](https://oddsrelay.io/docs/guides/conditional-requests.md): Send If-None-Match to get a free 304 when nothing has changed.
+- [Converting to American odds](https://oddsrelay.io/docs/guides/american-odds.md): Which products return American odds, and a function to convert the rest.
+- [Changelog](https://oddsrelay.io/docs/changelog): contract changes, each marked breaking or not
+
+## Plans
+
+- Free: £0, 50,000 tokens for 14 days, no card, one per company domain or personal email address every 12 months; then no tokens until a paid plan, on the same key.
+- Starter: £19 a month, 250,000 tokens a month.
+- Pro: £99 a month, 4M tokens a month.
+- Business: £449 a month, 40M tokens a month.
+- Enterprise: from £750 a month, talk to us.
+
+Every plan includes every product and every bookmaker in its region. Plans differ only in tokens. Details: https://oddsrelay.io/pricing
+
+## Coverage
+
+- [Coverage](https://oddsrelay.io/coverage): which bookmakers and exchanges we cover in each region, per product and sport
+
+## Blog
+
+- [Is there a free odds API?](https://oddsrelay.io/blog/is-there-a-free-odds-api.md): Yes: several odds APIs have a free tier. What free tiers hold back, whether UK bookmakers, bet365 and exchange lay prices are on one, and how to price a call.
+- [Arbitrage data: what an arbitrage tool needs](https://oddsrelay.io/blog/betting-arbitrage-data.md): What an arbitrage tool needs from an odds feed: back and lay prices for the same market, the money at each lay, and a time on every price, with real /v2 JSON.
+- [Matching bookmaker and exchange odds](https://oddsrelay.io/blog/matching-bookmaker-and-exchange-odds.md): What must agree before a bookmaker back price and an exchange lay price are one pair, where venue rules split them, and what a matched odds feed returns.
+- [Value betting vs arbitrage: the data each needs](https://oddsrelay.io/blog/value-betting-vs-arbitrage-data.md): What an arbitrage tool and a value betting tool each read from an odds feed, where fair odds and CLV fit, and which OddsRelay board carries the inputs.
+- [Efficient odds API polling with ETag and 304s](https://oddsrelay.io/blog/polling-an-odds-feed-efficiently.md): Poll an odds feed without paying twice for the same board: send If-None-Match for a free 304, accept gzip, narrow the request, and back off on a 429.
+- [Choosing the best bet365 odds API](https://oddsrelay.io/blog/best-bet365-odds-api-2026.md): The best bet365 odds API is the supplier you can test first. Six checks, from exchange lay to price age, each runnable on OddsRelay's Free plan.
+- [An odds API checklist for matched betting](https://oddsrelay.io/blog/best-odds-api-for-matched-betting-2026.md): The best odds API for matched betting pairs each bookmaker back price with an exchange lay price and its liquidity. A checklist for scoring the options.
+- [Best odds guaranteed (BOG) and your data](https://oddsrelay.io/blog/best-odds-guaranteed-explained.md): Best odds guaranteed pays the starting price when it beats the price taken. What that changes in a matched bet, and what the BOG board carries for builders.
+- [Buying vs building an odds data layer](https://oddsrelay.io/blog/buy-vs-build-odds-data.md): Build an odds data layer only if collecting odds is your product and you can name who maintains it in year two. What building takes, and what buying returns.
+- [Dutching data explained](https://oddsrelay.io/blog/dutching-data-explained.md): What dutching is, the arithmetic behind the stakes, and how a dutching feed sends it: back prices only, one leg per outcome, grouped by dutch_id.
+- [Each-way and extra-place odds data explained](https://oddsrelay.io/blog/data-behind-each-way-and-extra-place.md): Each-way and extra-place offers need the bookmaker's place terms and two exchange lays, win and place. What that data looks like and how to work a row.
+- [Football odds data, explained](https://oddsrelay.io/blog/football-odds-data-explained.md): How football odds data is keyed, which markets it carries (h2h, totals, correct score) and how a matched feed sets each back price beside an exchange lay.
+- [Horse racing and each-way odds data](https://oddsrelay.io/blog/horse-racing-and-each-way-odds-data.md): How horse racing odds data is shaped: a course instead of teams, runners as outcomes, and each bookmaker's place terms on its each-way price.
+- [How odds comparison sites use odds data](https://oddsrelay.io/blog/how-odds-comparison-sites-use-data.md): How an odds comparison site turns many bookmakers' prices into one best-price table, and which part of that job a raw odds feed does for you.
+- [How odds feeds handle suspended and void markets](https://oddsrelay.io/blog/how-odds-feeds-handle-suspended-and-void-markets.md): Suspended markets are paused and void ones settle as no bet. How a feed shows a pulled price, how OddsRelay's boards drop it, and what your product should do.
+- [How to build an oddsmatcher](https://oddsrelay.io/blog/how-to-build-an-oddsmatcher.md): An oddsmatcher is a data layer that pairs bookmaker back prices with exchange lay prices, and a product layer you build on top. How to split the work.
+- [How to calculate qualifying loss and ratings](https://oddsrelay.io/blog/qualifying-loss-and-ratings-explained.md): How to compute a matched bet's rating and qualifying loss from a back price and an exchange lay price, at your stake and commission, with a free-bet version.
+- [How to display odds data in your app](https://oddsrelay.io/blog/how-to-display-odds-data-in-your-app.md): Turn an odds API response into table rows, format decimal prices without losing precision, show each back and lay pair with its age, and poll without waste.
+- [How to evaluate odds-data coverage](https://oddsrelay.io/blog/how-to-evaluate-odds-data-coverage.md): Judge an odds feed's coverage per product, bookmaker, sport and market, not on a headline book count, and check each claim against data you can read yourself.
+- [How to get Betfair lay odds (and alternatives)](https://oddsrelay.io/blog/how-to-get-betfair-lay-odds.md): Betfair's Exchange API returns its own lay prices and the money behind them. What that route involves, what it leaves to you, and when a matched feed fits.
+- [How to get bookmaker odds data into your app](https://oddsrelay.io/blog/how-to-get-bookmaker-odds-data.md): Two routes to bookmaker odds in your app: collect the prices yourself, or license a feed. What to decide first, a first call on a real response, and caching.
+- [How to monitor an odds feed in production](https://oddsrelay.io/blog/how-to-monitor-an-odds-feed-in-production.md): Monitor an odds feed on three checks: is it answering, how old are the prices, and is every bookmaker present. The fields and routes to build each one on.
+- [How to normalise odds across bookmakers](https://oddsrelay.io/blog/how-to-normalise-odds-across-bookmakers.md): Normalising odds gives one event, market and selection a single identity across books that label them differently. How to build the join, and what a feed does.
+- [How to store and version odds data](https://oddsrelay.io/blog/how-to-store-and-version-odds-data.md): Build your own odds history: append each price as a row stamped with the board's time, keyed on fixture ids you own, and write only what changed.
+- [How to test an odds feed before you buy](https://oddsrelay.io/blog/how-to-test-an-odds-feed-before-you-buy.md): Test an odds feed against your own books and markets: read the public contract, check live coverage without a key, price calls for free, and prove the 304s.
+- [Integrating an odds feed with AI coding tools](https://oddsrelay.io/blog/integrating-an-odds-feed-with-ai-tools.md): Give an AI coding assistant the keyless OpenAPI 3.1 contract and a precise prompt, then review what it writes. The workflow, and what to check before shipping.
+- [Is there a bet365 API?](https://oddsrelay.io/blog/is-there-a-bet365-api.md): bet365 publishes no public odds API for third parties. What that means, the two routes to its prices, and what to check in a feed that includes bet365.
+- [Live vs pre-match odds data](https://oddsrelay.io/blog/live-vs-pre-match-odds-data.md): A live odds API usually means in-play prices, a different product from pre-match odds data. Which one you need, and what a pre-match feed should guarantee.
+- [Odds API vs odds feed](https://oddsrelay.io/blog/odds-api-vs-odds-feed.md): Odds API and odds feed mostly name the same thing from two angles. What changes your build is raw prices versus prices already paired with exchange lay.
+- [Odds API vs sports data API](https://oddsrelay.io/blog/odds-api-vs-sports-data-api.md): A sports data API gives you scores, fixtures and stats. An odds API gives you bookmakers' prices. When you need each, where they overlap, and how to join them.
+- [Responsible data supply for betting products](https://oddsrelay.io/blog/responsible-data-supply-for-betting-products.md): An odds data supplier sells prices to businesses and takes no bets. Where that line sits, what the feed carries, and which obligations stay with your product.
+- [Switching odds data providers without downtime](https://oddsrelay.io/blog/how-to-switch-odds-data-providers.md): Switch odds data providers by running the new feed in parallel: map fields behind one adapter, diff coverage and freshness on your markets, then cut over.
+- [The Betfair API 5-second delay, explained](https://oddsrelay.io/blog/betfair-api-5-second-delay.md): Why a Betfair delayed application key returns late prices and leaves out traded volume, what a live key needs, and when the delay matters for a pre-match build.
+- [The anatomy of an odds API response](https://oddsrelay.io/blog/anatomy-of-an-odds-api-response.md): Every field in an OddsRelay /v2 odds response, walked once: the meta envelope, events, markets, outcomes, back and lay offers, each-way, dutching and raw.
+- [The complete guide to matched betting odds data](https://oddsrelay.io/blog/complete-guide-matched-betting-odds-data.md): What the data behind matched betting is: bookmaker back prices paired with exchange lay prices and lay liquidity, and the arithmetic you run on each pair.
+- [Webhooks vs polling for odds data](https://oddsrelay.io/blog/webhooks-vs-polling-for-odds-data.md): Odds prices change continuously, so polling with If-None-Match fits them better than webhooks. When push does fit, and how to poll OddsRelay's pull-only feed.
+- [What bet365 odds data you can get](https://oddsrelay.io/blog/bet365-odds-data-guide.md): What bet365 odds data is, how to judge a supplier's bet365 coverage, why an oddsmatcher needs the exchange lay beside it, and how to read it from the feed.
+- [What drives the cost of an odds feed](https://oddsrelay.io/blog/what-drives-the-cost-of-an-odds-feed.md): What sets odds API pricing: coverage, exchange pairing and how usage is metered. Plus how OddsRelay prices each call from the request, and what costs nothing.
+- [What is an odds API?](https://oddsrelay.io/blog/what-is-an-odds-api.md): An odds API returns bookmakers' prices as structured data your software can read. What one returns, raw versus matched feeds, and what to check first.
+- [What is an oddsmatcher?](https://oddsrelay.io/blog/oddsmatcher-data-explained.md): What an oddsmatcher is, the back and lay prices it runs on, and how the rating and qualifying loss are worked out from them at your own commission rate.
+- [Why lay liquidity matters in a matched odds feed](https://oddsrelay.io/blog/why-lay-liquidity-matters.md): A lay price is only usable if money sits behind it. What lay liquidity is, why each lay offer in a matched feed carries it, and how to check a pair is fillable.
+- [Why teams stop scraping odds and buy a feed](https://oddsrelay.io/blog/why-teams-stop-scraping-and-buy-a-feed.md): Scraping odds yourself works until the upkeep outgrows the product. The signs it is time to stop, and what a licensed feed changes.
+
+## About OddsRelay
+
+OddsRelay is an odds-data API for businesses. It serves odds from 140+ bookmakers, 60+ of them live in the UK & Ireland, through one keyed REST API, as two co-equal products: each bookmaker's raw prices, and matched feeds where every bookmaker back price is already paired with the best lay price on Betfair, Smarkets, Matchbook and BETDAQ and the money available at that lay (six feed types). bet365 is included in every plan. Every product on sale meets a maximum update time of 10–20 s: how old a bookmaker's price can be when it reaches you. OddsRelay is a data supplier, not an operator, and takes no bets.
+
+- Website: https://oddsrelay.io
+- Docs: https://oddsrelay.io/docs
+- OpenAPI 3.1 file: https://api.oddsrelay.io/v2/openapi.json
+
+## Optional
+
+- [Full text](https://oddsrelay.io/llms-full.txt): these docs in one file

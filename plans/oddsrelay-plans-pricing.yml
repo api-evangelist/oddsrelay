@@ -1,0 +1,47 @@
+name: OddsRelay Plans
+generated: '2026-10-09'
+method: searched
+source: https://oddsrelay.io/pricing
+audience: developer-api
+pricing_basis: tiered-subscription
+published: true
+currency: GBP
+delivery:
+  delivery: managed
+note: Every plan includes every product and every bookmaker in its region; plans differ
+  only in tokens. Calls are priced in tokens from the product and filters (GET /v2/pricing
+  publishes the table).
+plans:
+- name: Free
+  price: 0
+  price_text: £0
+  billing_period: 14 days
+  features:
+  - No card needed
+  limits:
+  - 50,000 tokens
+- name: Starter
+  price: 19
+  price_text: £19
+  billing_period: month
+  limits:
+  - 250,000 tokens a month
+- name: Pro
+  price: 99
+  price_text: £99
+  billing_period: month
+  limits:
+  - 4M tokens a month
+- name: Business
+  price: 449
+  price_text: £449
+  billing_period: month
+  limits:
+  - 40M tokens a month
+- name: Enterprise
+  price_text: from £750
+  billing_period: month
+  features:
+  - Custom bookmakers, several regions, push delivery, embeds and resale, on one contract
+    billed by invoice.
+  limits: []

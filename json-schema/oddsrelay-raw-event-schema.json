@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/oddsrelay/main/json-schema/oddsrelay-raw-event-schema.json",
+  "title": "RawEvent",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/oddsrelay-openapi.yml#/components/schemas/RawEvent",
+  "type": "object",
+  "required": [
+    "id",
+    "cluster_id",
+    "sport_key",
+    "sport_title",
+    "commence_time",
+    "home_team",
+    "away_team",
+    "bookmakers"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "cluster_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sport_key": {
+      "type": "string"
+    },
+    "sport_title": {
+      "type": "string"
+    },
+    "commence_time": {
+      "type": [
+        "string",
+        "integer",
+        "null"
+      ]
+    },
+    "home_team": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "away_team": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bookmakers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "title",
+          "region",
+          "last_update",
+          "markets"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "last_update": {
+            "type": [
+              "string",
+              "integer",
+              "null"
+            ],
+            "description": "The newest `last_update` of the venue's markets."
+          },
+          "link": {
+            "type": "string",
+            "description": "`includeLinks=true` only."
+          },
+          "markets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "last_update",
+                "outcomes"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "last_update": {
+                  "type": [
+                    "string",
+                    "integer",
+                    "null"
+                  ],
+                  "description": "When this venue's market last changed (second precision): a price, a lay price or `available` moved, or a row appeared, including a venue's rows coming back after a few seconds off the board (see the Freshness note). A service restart can also move it once with nothing changed: dedupe on content. It is not a heartbeat: a quiet venue's `last_update` ages while the venue is still read (venue freshness is `last_seen` in keyed `/v2/coverage`)."
+                },
+                "outcomes": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/RawOutcome"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "RawOutcome": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "description": "A bookmaker quote is `{name, price}`; a venue quoting a lay side is `{name, back_price, lay_price, available}` (`available` left out under `includeLiquidity=false`). No commission is applied.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": [
+            "number",
+            "integer",
+            "null"
+          ]
+        },
+        "back_price": {
+          "type": [
+            "number",
+            "integer",
+            "null"
+          ]
+        },
+        "lay_price": {
+          "type": [
+            "number",
+            "integer",
+            "null"
+          ]
+        },
+        "available": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

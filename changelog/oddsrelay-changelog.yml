@@ -1,0 +1,42 @@
+name: OddsRelay Changelog
+generated: '2026-10-09'
+method: searched
+source: https://oddsrelay.io/docs/changelog
+scheme: date-based API version
+current_version: '2026-07-08'
+entries:
+- version: '2026-07-08'
+  date: '2026-10-08'
+  breaking: false
+  highlights:
+  - Added required field CoverageSummary.markets
+- version: '2026-07-08'
+  date: '2026-10-05'
+  breaking: false
+  highlights:
+  - Added error codes exchange_not_in_plan, market_not_in_plan, sport_not_in_plan; Usage.scope and scope_version
+- version: '2026-07-08'
+  date: '2026-09-29'
+  breaking: false
+  highlights:
+  - Added query parameter requireBookmakers on GET /v2/odds/raw
+- version: '2026-07-08'
+  date: '2026-09-23'
+  breaking: true
+  highlights:
+  - Removed MatchedMeta.unreliable_links required fields
+- version: '2026-07-08'
+  date: '2026-09-18'
+  breaking: false
+  highlights:
+  - Documented Accept-Encoding header on odds endpoints
+- version: '2026-07-08'
+  date: '2026-09-17'
+  breaking: true
+  highlights:
+  - upgrade_url no longer always present in a 402 error
+- version: '2026-07-08'
+  date: '2026-09-17'
+  breaking: false
+  highlights:
+  - 'The first published version: 14 endpoints and 31 error codes.'

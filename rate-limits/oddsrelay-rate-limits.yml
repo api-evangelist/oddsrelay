@@ -1,0 +1,30 @@
+name: OddsRelay Rate Limits
+generated: '2026-10-09'
+method: searched
+source: https://oddsrelay.io/docs
+headers:
+- X-RateLimit-Limit
+- X-RateLimit-Remaining
+- X-RateLimit-Reset
+- Retry-After
+- X-Tokens-Cost
+- X-Tokens-Remaining
+- X-Tokens-Limit
+- X-Tokens-Reset
+status_on_exhaustion: 429
+limits:
+- name: Per-account request rate
+  scope: per-account
+  limit_text: Each account is limited per 10 seconds, per minute, and in concurrent
+    requests
+  note: Numbers not published; GET /v2/usage shows your limits.
+- name: Per-address limit before authentication
+  scope: per-ip
+  limit_text: Before a key is checked, each IP address has its own limit
+  error_code: too_many_from_address
+- name: Token pool (Free)
+  scope: per-account
+  plan: Free
+  limit_text: 50,000 tokens
+  window: 14 days
+  max: 50000

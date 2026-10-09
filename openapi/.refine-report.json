@@ -1,0 +1,29 @@
+{
+  "provider": "oddsrelay",
+  "sources": [
+    "_original/oddsrelay-openapi.json",
+    "oddsrelay-openapi.yml"
+  ],
+  "outputs": [
+    "oddsrelay-account-api-openapi.yml",
+    "oddsrelay-discovery-api-openapi.yml",
+    "oddsrelay-odds-api-openapi.yml",
+    "oddsrelay-service-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/oddsrelay-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "oddsrelay-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "oddsrelay-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Account' spans 2 source specs (oddsrelay-openapi.json, oddsrelay-openapi.yml): per-path servers applied",
+    "tag 'Discovery' spans 2 source specs (oddsrelay-openapi.json, oddsrelay-openapi.yml): per-path servers applied",
+    "tag 'Odds' spans 2 source specs (oddsrelay-openapi.json, oddsrelay-openapi.yml): per-path servers applied",
+    "tag 'Service' spans 2 source specs (oddsrelay-openapi.json, oddsrelay-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+4 apis, 4 total)"
+  ],
+  "skipped": []
+}

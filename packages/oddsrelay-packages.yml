@@ -1,0 +1,21 @@
+name: OddsRelay Packages
+generated: '2026-10-09'
+method: searched
+source: https://registry.npmjs.org/oddsrelay
+packages:
+- name: oddsrelay
+  registry: npm
+  url: https://www.npmjs.com/package/oddsrelay
+  language: TypeScript
+  official: true
+  version: 0.1.0
+  published: '2026-10-09'
+  repository: https://github.com/oddsrelay/oddsrelay-js
+- name: oddsrelay
+  registry: pypi
+  url: https://pypi.org/project/oddsrelay/
+  language: Python
+  official: true
+  version: 0.1.0
+  published: '2026-10-09'
+  repository: https://github.com/oddsrelay/oddsrelay-python

@@ -1,0 +1,80 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/oddsrelay-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error400
+coverage:
+  operations: 14
+  statuses_declared: 9
+problems:
+- status: 400
+  title: Bad Request
+  description: '400: a parameter this route does not read or sent twice, a malformed value, gzip refused on standard,
+    dutching or raw, or a filter value the'
+  operations: 13
+  media_types:
+  - application/json
+  schema: Error400
+- status: 401
+  title: Unauthorized
+  description: '401: no key, or a key that is not accepted. Carries `WWW-Authenticate`; no token or flood-cap headers.'
+  operations: 11
+  media_types:
+  - application/json
+  schema: Error401
+- status: 402
+  title: Payment Required
+  description: '402 `insufficient_tokens`: the price is above the balance. Price it first with `quote=true`.'
+  operations: 3
+  media_types:
+  - application/json
+  schema: Error402
+- status: 403
+  title: Forbidden
+  description: '403: the account, the key''s scope, the region, the plan or the account''s scope refuses this call.'
+  operations: 11
+  media_types:
+  - application/json
+  schema: Error403
+- status: 404
+  title: Not Found
+  description: '404.'
+  operations: 7
+  media_types:
+  - application/json
+  schema: Error404
+- status: 429
+  title: Too Many Requests
+  description: '429 with `Retry-After`. `too_many_requests`: the account''s flood cap or its in-flight cap (with
+    `X-RateLimit-*`). `too_many_from_address`: t'
+  operations: 13
+  media_types:
+  - application/json
+  schema: Error429
+- status: 500
+  title: Internal Server Error
+  description: 500 `internal_error`. If it came after a spend, `X-Tokens-Cost` reads 0 and the spend stands.
+  operations: 13
+  media_types:
+  - application/json
+  schema: Error500
+- status: 502
+  title: Bad Gateway
+  description: '502 from the front door when the API behind it does not answer: an empty body, no `code`. Retry
+    with backoff.'
+  operations: 14
+  media_types: []
+  schema: null
+- status: 503
+  title: Service Unavailable
+  description: '503 with `Retry-After`: `temporarily_unavailable` (a board, the key registry or a connection is
+    not ready; retry) or `raw_not_enabled` (the '
+  operations: 13
+  media_types:
+  - application/json
+  - text/plain
+  schema: Error503

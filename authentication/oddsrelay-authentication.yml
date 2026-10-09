@@ -1,0 +1,23 @@
+generated: '2026-10-09'
+method: derived
+source: openapi/oddsrelay-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: '`Authorization: Bearer or_live_…`'
+  sources:
+  - openapi/oddsrelay-openapi.yml
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: The same key in `x-api-key`.
+  sources:
+  - openapi/oddsrelay-openapi.yml

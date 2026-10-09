@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/oddsrelay/main/json-schema/oddsrelay-regions-schema.json",
+  "title": "Regions",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/oddsrelay-openapi.yml#/components/schemas/Regions",
+  "type": "object",
+  "required": [
+    "version",
+    "default_region",
+    "regions"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "default_region": {
+      "type": "string"
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "requestable",
+          "bookmakers",
+          "exchanges",
+          "matched_coverage",
+          "coverage_model",
+          "exchange_available",
+          "board"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "requestable": {
+            "type": "boolean"
+          },
+          "bookmakers": {
+            "type": "integer",
+            "description": "Bookmakers with rows now."
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "matched_coverage": {
+            "type": "boolean"
+          },
+          "coverage_model": {
+            "type": "string",
+            "enum": [
+              "matched",
+              "dutching"
+            ]
+          },
+          "exchange_available": {
+            "type": "boolean"
+          },
+          "board": {
+            "type": "string",
+            "enum": [
+              "filtered",
+              "partitioned"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

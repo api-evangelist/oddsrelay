@@ -1,0 +1,7 @@
+generated: '2026-10-09'
+method: generated
+skills:
+- name: oddsrelay-matched-odds
+  file: skills/oddsrelay-matched-odds.md
+- name: oddsrelay-raw-odds
+  file: skills/oddsrelay-raw-odds.md

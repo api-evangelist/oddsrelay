@@ -1,0 +1,299 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/oddsrelay/main/json-schema/oddsrelay-matched-event-schema.json",
+  "title": "MatchedEvent",
+  "description": "One fixture. Ids are opaque and stable across boards (one fixture is one id on every route), but not durable keys: a paired fixture re-keys once when a higher-ranked exchange lists it.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/oddsrelay-openapi.yml#/components/schemas/MatchedEvent",
+  "type": "object",
+  "required": [
+    "event_id",
+    "sport_key",
+    "sport_title",
+    "commence_time",
+    "markets"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "sport_key": {
+      "type": "string"
+    },
+    "sport_title": {
+      "type": "string"
+    },
+    "commence_time": {
+      "type": [
+        "string",
+        "integer",
+        "null"
+      ]
+    },
+    "home_team": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Team sports."
+    },
+    "away_team": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Team sports."
+    },
+    "event_name": {
+      "type": "string",
+      "description": "A team fixture that does not split into sides."
+    },
+    "venue": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Racing: the course."
+    },
+    "markets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "outcomes"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/MatchedOutcome"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "MatchedOutcome": {
+      "type": "object",
+      "required": [
+        "name",
+        "back"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "point": {
+          "type": "number",
+          "description": "The line, on line markets."
+        },
+        "back": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "bookmaker",
+              "price",
+              "link"
+            ],
+            "properties": {
+              "bookmaker": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Venue key (`/v2/bookmakers`)."
+              },
+              "price": {
+                "type": [
+                  "number",
+                  "integer",
+                  "null"
+                ]
+              },
+              "link": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "The venue's page for this event."
+              },
+              "places": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "`each-way`, `extra-place`: places paid."
+              },
+              "place_fraction": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "`each-way`, `extra-place`: the place terms as a fraction."
+              },
+              "dutch_id": {
+                "type": "string",
+                "description": "`dutching` only: 8 hex naming the dutch this leg belongs to. Group one market's offers by it and rate a dutch as 100 / sum(1/price)."
+              }
+            }
+          },
+          "description": "Best price first."
+        },
+        "lay": {
+          "description": "Lowest price first. An array of exchange offers; on `each-way` and `extra-place` an object `{win, place}` of two such arrays; absent on `dutching`.",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "exchange",
+                  "price",
+                  "available",
+                  "link"
+                ],
+                "properties": {
+                  "exchange": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": [
+                      "number",
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "available": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "description": "Money available at that lay price."
+                  },
+                  "places": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "description": "`lay.place` only: the place market's places."
+                  },
+                  "link": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "win",
+                "place"
+              ],
+              "properties": {
+                "win": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "exchange",
+                      "price",
+                      "available",
+                      "link"
+                    ],
+                    "properties": {
+                      "exchange": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": [
+                          "number",
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "available": {
+                        "type": [
+                          "number",
+                          "null"
+                        ],
+                        "description": "Money available at that lay price."
+                      },
+                      "places": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "description": "`lay.place` only: the place market's places."
+                      },
+                      "link": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "place": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "exchange",
+                      "price",
+                      "available",
+                      "link"
+                    ],
+                    "properties": {
+                      "exchange": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": [
+                          "number",
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "available": {
+                        "type": [
+                          "number",
+                          "null"
+                        ],
+                        "description": "Money available at that lay price."
+                      },
+                      "places": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "description": "`lay.place` only: the place market's places."
+                      },
+                      "link": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+name: OddsRelay Conventions
+generated: '2026-10-09'
+method: searched
+source: https://oddsrelay.io/docs
+auth:
+  style: 'Authorization: Bearer or_live_… or x-api-key header'
+  docs: https://oddsrelay.io/docs
+idempotency:
+  coverage: na
+  note: Every operation is GET; the API returns 405 method_not_allowed for any other method. No write surface.
+reversibility:
+  status: na
+  note: Read-only API (GET only).
+dry_run:
+  mechanism: quote=true on any data request returns the price instead of the odds and costs nothing
+  docs: https://oddsrelay.io/docs/guides/filters-and-tokens
+pagination:
+  style: cursor
+  docs: Paging through raw odds guide (GET /v2/odds/raw)
+caching: 'ETag / If-None-Match; 304 replies are free. Accept-Encoding: gzip compresses bodies over 1 kB.'
+request_id: error.request_id in every error envelope
+versioning: X-OddsRelay-Api-Version response header
+errors:
+  envelope: '{"error": {"code", "message", "request_id"}}'
+  catalog: errors/oddsrelay-error-codes.yml
+rate_limit_signaling:
+- X-RateLimit-Limit
+- X-RateLimit-Remaining
+- X-RateLimit-Reset
+- Retry-After
+metering_headers:
+- X-Tokens-Cost
+- X-Tokens-Used
+- X-Tokens-Remaining
+- X-Tokens-Limit
+- X-Tokens-Reset

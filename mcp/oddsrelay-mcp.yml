@@ -1,0 +1,81 @@
+name: OddsRelay MCP (candidate)
+generated: '2026-10-09'
+method: derived
+source: openapi/oddsrelay-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: api-key
+  verified: derived
+note: No official MCP server found (api.oddsrelay.io/mcp 404; llms.txt names none). Tools derived from OpenAPI operations.
+tools:
+- name: getMatchedBoard
+  description: A matched board
+  operation: getMatchedBoard
+  method: GET
+  path: /v2/odds/{type}
+- name: getRawBoard
+  description: The raw board, paged
+  operation: getRawBoard
+  method: GET
+  path: /v2/odds/raw
+- name: getRawEvent
+  description: One event from the raw board
+  operation: getRawEvent
+  method: GET
+  path: /v2/odds/event/{id}
+- name: listSports
+  description: Sports and competitions
+  operation: listSports
+  method: GET
+  path: /v2/sports
+- name: listEvents
+  description: Events of a sport
+  operation: listEvents
+  method: GET
+  path: /v2/events
+- name: listBookmakers
+  description: Venues
+  operation: listBookmakers
+  method: GET
+  path: /v2/bookmakers
+- name: listRegions
+  description: Your regions
+  operation: listRegions
+  method: GET
+  path: /v2/regions
+- name: getCoverage
+  description: Coverage per venue and sport
+  operation: getCoverage
+  method: GET
+  path: /v2/coverage
+- name: getStatus
+  description: Product status, keyless
+  operation: getStatus
+  method: GET
+  path: /v2/status
+- name: getHealth
+  description: Board freshness
+  operation: getHealth
+  method: GET
+  path: /v2/health
+- name: getUsage
+  description: Your plan, balance, key, flood cap and scope
+  operation: getUsage
+  method: GET
+  path: /v2/usage
+- name: getPricing
+  description: The price table
+  operation: getPricing
+  method: GET
+  path: /v2/pricing
+- name: getOpenApi
+  description: This document, keyless
+  operation: getOpenApi
+  method: GET
+  path: /v2/openapi.json
+- name: getLiveness
+  description: Liveness, keyless
+  operation: getLiveness
+  method: GET
+  path: /healthz

@@ -1,0 +1,275 @@
+{
+  "@context": {
+    "@vocab": "https://oddsrelay.io/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "oddsrelay": "https://oddsrelay.io/schema#",
+    "ErrorBody": "oddsrelay:ErrorBody",
+    "error": {
+      "@id": "oddsrelay:error"
+    },
+    "Error402": "oddsrelay:Error402",
+    "Quote": "oddsrelay:Quote",
+    "cost": {
+      "@id": "oddsrelay:cost",
+      "@type": "xsd:integer"
+    },
+    "remaining": {
+      "@id": "oddsrelay:remaining",
+      "@type": "xsd:integer"
+    },
+    "rate_card": {
+      "@id": "oddsrelay:rate_card",
+      "@type": "xsd:string"
+    },
+    "MatchedMeta": "oddsrelay:MatchedMeta",
+    "feed_type": {
+      "@id": "oddsrelay:feed_type",
+      "@type": "xsd:string"
+    },
+    "region": {
+      "@id": "oddsrelay:region",
+      "@type": "xsd:string"
+    },
+    "odds_format": {
+      "@id": "oddsrelay:odds_format",
+      "@type": "xsd:string"
+    },
+    "processed_at": {
+      "@id": "oddsrelay:processed_at",
+      "@type": "xsd:string"
+    },
+    "last_seen": {
+      "@id": "oddsrelay:last_seen"
+    },
+    "count": {
+      "@id": "oddsrelay:count",
+      "@type": "xsd:integer"
+    },
+    "version": {
+      "@id": "oddsrelay:version",
+      "@type": "xsd:string"
+    },
+    "next_cursor": {
+      "@id": "oddsrelay:next_cursor"
+    },
+    "MatchedEvent": "oddsrelay:MatchedEvent",
+    "event_id": {
+      "@id": "oddsrelay:event_id",
+      "@type": "xsd:string"
+    },
+    "sport_key": {
+      "@id": "oddsrelay:sport_key",
+      "@type": "xsd:string"
+    },
+    "sport_title": {
+      "@id": "oddsrelay:sport_title",
+      "@type": "xsd:string"
+    },
+    "commence_time": {
+      "@id": "oddsrelay:commence_time",
+      "@type": "xsd:string"
+    },
+    "home_team": {
+      "@id": "oddsrelay:home_team",
+      "@type": "xsd:string"
+    },
+    "away_team": {
+      "@id": "oddsrelay:away_team",
+      "@type": "xsd:string"
+    },
+    "event_name": {
+      "@id": "oddsrelay:event_name",
+      "@type": "xsd:string"
+    },
+    "venue": {
+      "@id": "oddsrelay:venue",
+      "@type": "xsd:string"
+    },
+    "markets": {
+      "@id": "oddsrelay:markets",
+      "@container": "@list"
+    },
+    "MatchedOutcome": "oddsrelay:MatchedOutcome",
+    "name": {
+      "@id": "oddsrelay:name",
+      "@type": "xsd:string"
+    },
+    "point": {
+      "@id": "oddsrelay:point",
+      "@type": "xsd:decimal"
+    },
+    "back": {
+      "@id": "oddsrelay:back",
+      "@container": "@list"
+    },
+    "lay": {
+      "@id": "oddsrelay:lay"
+    },
+    "MatchedEnvelope": "oddsrelay:MatchedEnvelope",
+    "meta": {
+      "@id": "oddsrelay:meta",
+      "@type": "@id"
+    },
+    "data": {
+      "@id": "oddsrelay:data",
+      "@container": "@list"
+    },
+    "RawOutcome": "oddsrelay:RawOutcome",
+    "price": {
+      "@id": "oddsrelay:price",
+      "@type": "xsd:decimal"
+    },
+    "back_price": {
+      "@id": "oddsrelay:back_price",
+      "@type": "xsd:decimal"
+    },
+    "lay_price": {
+      "@id": "oddsrelay:lay_price",
+      "@type": "xsd:decimal"
+    },
+    "available": {
+      "@id": "oddsrelay:available",
+      "@type": "xsd:decimal"
+    },
+    "RawEvent": "oddsrelay:RawEvent",
+    "id": {
+      "@id": "oddsrelay:id",
+      "@type": "xsd:string"
+    },
+    "cluster_id": {
+      "@id": "oddsrelay:cluster_id",
+      "@type": "xsd:string"
+    },
+    "bookmakers": {
+      "@id": "oddsrelay:bookmakers",
+      "@container": "@list"
+    },
+    "RawMeta": "oddsrelay:RawMeta",
+    "total": {
+      "@id": "oddsrelay:total",
+      "@type": "xsd:integer"
+    },
+    "board_version": {
+      "@id": "oddsrelay:board_version",
+      "@type": "xsd:integer"
+    },
+    "RawEnvelope": "oddsrelay:RawEnvelope",
+    "PageMeta": "oddsrelay:PageMeta",
+    "Sport": "oddsrelay:Sport",
+    "key": {
+      "@id": "oddsrelay:key",
+      "@type": "xsd:string"
+    },
+    "group": {
+      "@id": "oddsrelay:group",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "oddsrelay:title",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "oddsrelay:description",
+      "@type": "xsd:string"
+    },
+    "active": {
+      "@id": "oddsrelay:active",
+      "@type": "xsd:boolean"
+    },
+    "has_outrights": {
+      "@id": "oddsrelay:has_outrights",
+      "@type": "xsd:boolean"
+    },
+    "regions": {
+      "@id": "oddsrelay:regions",
+      "@container": "@list"
+    },
+    "Event": "oddsrelay:Event",
+    "status": {
+      "@id": "oddsrelay:status",
+      "@type": "xsd:string"
+    },
+    "has_coverage": {
+      "@id": "oddsrelay:has_coverage",
+      "@container": "@list"
+    },
+    "Venue": "oddsrelay:Venue",
+    "is_exchange": {
+      "@id": "oddsrelay:is_exchange",
+      "@type": "xsd:boolean"
+    },
+    "Regions": "oddsrelay:Regions",
+    "default_region": {
+      "@id": "oddsrelay:default_region",
+      "@type": "xsd:string"
+    },
+    "Health": "oddsrelay:Health",
+    "boards": {
+      "@id": "oddsrelay:boards"
+    },
+    "stale_boards": {
+      "@id": "oddsrelay:stale_boards",
+      "@container": "@list"
+    },
+    "max_board_age_s": {
+      "@id": "oddsrelay:max_board_age_s",
+      "@type": "xsd:decimal"
+    },
+    "missing_boards": {
+      "@id": "oddsrelay:missing_boards",
+      "@container": "@list"
+    },
+    "Status": "oddsrelay:Status",
+    "generated_at": {
+      "@id": "oddsrelay:generated_at",
+      "@type": "xsd:string"
+    },
+    "products": {
+      "@id": "oddsrelay:products"
+    },
+    "CoverageSummary": "oddsrelay:CoverageSummary",
+    "CoverageKeyed": "oddsrelay:CoverageKeyed",
+    "Usage": "oddsrelay:Usage",
+    "plan": {
+      "@id": "oddsrelay:plan",
+      "@type": "xsd:string"
+    },
+    "account": {
+      "@id": "oddsrelay:account"
+    },
+    "tokens": {
+      "@id": "oddsrelay:tokens"
+    },
+    "flood_cap": {
+      "@id": "oddsrelay:flood_cap"
+    },
+    "scope": {
+      "@id": "oddsrelay:scope"
+    },
+    "scope_version": {
+      "@id": "oddsrelay:scope_version",
+      "@type": "xsd:integer"
+    },
+    "PriceTable": "oddsrelay:PriceTable",
+    "provisional": {
+      "@id": "oddsrelay:provisional",
+      "@type": "xsd:boolean"
+    },
+    "captured_at": {
+      "@id": "oddsrelay:captured_at",
+      "@type": "xsd:string"
+    },
+    "recent": {
+      "@id": "oddsrelay:recent"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "OddsRelay API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects OddsRelay's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-09) from openapi/oddsrelay-openapi.yml.",
+  "dcterms:created": "2026-10-09",
+  "dcterms:source": [
+    "openapi/oddsrelay-openapi.yml"
+  ]
+}

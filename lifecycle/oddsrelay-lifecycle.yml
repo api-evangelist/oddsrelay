@@ -1,0 +1,9 @@
+name: OddsRelay Lifecycle
+generated: '2026-10-09'
+method: searched
+source: https://oddsrelay.io/docs
+versioning: API version 2026-07-08, returned in the X-OddsRelay-Api-Version header. Within /v2 only additions (endpoints, optional fields, enum values, error codes).
+deprecation: Breaking changes ship only as a new version, with 6 months' notice.
+deprecation_docs: https://oddsrelay.io/docs/changelog
+status_page: https://oddsrelay.io/status
+price_change_notice: Any rise comes with 30 days' notice.
