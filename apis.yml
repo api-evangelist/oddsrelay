@@ -18,6 +18,13 @@ tags:
 - Odds
 - Sports Data
 - Matched Betting
+- Data Feed
+tags_raw:
+- Company
+- Sports Betting
+- Odds
+- Sports Data
+- Matched Betting
 - Data Feeds
 maintainers:
 - FN: Kin Lane
@@ -190,6 +197,8 @@ apis:
   humanURL: https://oddsrelay.io/docs
   baseURL: https://api.oddsrelay.io
   tags:
+  - Services
+  tags_raw:
   - Service
   properties:
   - type: OpenAPI
