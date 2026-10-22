@@ -59,6 +59,36 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: CRAN
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (R)
+  evidence: https://cran.r-project.org/package=oddsrelay
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: CRAN (packages.rds, the public package metadata table)
+    spec_file: null
+    language: R
+    packages:
+    - name: oddsrelay
+      version: 0.1.0
+      title: Client for the 'OddsRelay' Sports Odds API
+      released: '2026-10-21'
+      released_field: Published
+      lapsed: false
+      page: https://cran.r-project.org/package=oddsrelay
+      repo_leg: github-org:oddsrelay
+      publisher_leg: email:oddsrelay.io
+      matched_by: domain
+    current: true
+    signal_note: 'an official R package on CRAN: distribution, not an integration; lapsed = no release in 24 months'
+    detected_by: sweep-cran-r-packages.py
+    detected: '2026-10-22'
+  detected_by: sweep-cran-r-packages.py
+  first_seen: '2026-10-22'
 generated: '2026-10-18'
 method: searched
 source:
@@ -77,3 +107,4 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- https://cran.r-project.org/web/packages/packages.rds
