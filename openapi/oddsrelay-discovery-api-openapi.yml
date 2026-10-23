@@ -1906,3 +1906,9 @@ components:
       in: header
       name: x-api-key
       description: The same key in `x-api-key`.
+x-provenance:
+  method: harvested
+  publisher: OddsRelay
+  source: https://api.oddsrelay.io/v2/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
