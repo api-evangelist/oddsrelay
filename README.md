@@ -64,5 +64,148 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-OddsRelay is a company surfaced via the API Evangelist harvest backlog (source: new-submission) and added to the network as a stub for full-pipeline profiling.
-- https://oddsrelay.io
+OddsRelay is a UK-based odds-data API for businesses, serving prices from 140+ bookmakers (60+ live in the UK & Ireland) through one keyed REST API: each bookmaker's raw prices, and matched feeds pairing every bookmaker back price with the best exchange lay price on Betfair, Smarkets, Matchbook and BETDAQ plus the liquidity at that lay. It is a data supplier, not an operator, and takes no bets.
+
+**Areas:** Company · Sports Betting · Odds · Sports Data · Matched Betting · Data Feed
+
+## OddsRelay on APIs.io
+
+Everything profiled for OddsRelay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/oddsrelay/](https://apis.io/providers/oddsrelay/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [OddsRelay Account API](https://apis.io/apis/oddsrelay/oddsrelay-account-api/) — Usage and prices. Free.
+- [OddsRelay Discovery API](https://apis.io/apis/oddsrelay/oddsrelay-discovery-api/) — Sports, events, venues, regions. Free.
+- [OddsRelay Odds API](https://apis.io/apis/oddsrelay/oddsrelay-odds-api/) — Matched boards, raw, one event.
+- [OddsRelay Service API](https://apis.io/apis/oddsrelay/oddsrelay-service-api/) — Coverage, status, health, liveness and this document.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [OddsRelay MCP (candidate)](https://apis.io/servers/oddsrelay/oddsrelay-mcp-candidate/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Oddsrelay Agentic Access](https://apis.io/agentic-access/oddsrelay/oddsrelay-agentic-access/)
+
+#### JSON Schema (6)
+
+The data models the API reads and writes.
+
+- [CoverageKeyed](https://apis.io/schemas/oddsrelay/oddsrelay-coverage-keyed/)
+- [CoverageSummary](https://apis.io/schemas/oddsrelay/oddsrelay-coverage-summary/)
+- [MatchedEvent](https://apis.io/schemas/oddsrelay/oddsrelay-matched-event/)
+- [RawEvent](https://apis.io/schemas/oddsrelay/oddsrelay-raw-event/)
+- [Regions](https://apis.io/schemas/oddsrelay/oddsrelay-regions/)
+- [Usage](https://apis.io/schemas/oddsrelay/oddsrelay-usage/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Oddsrelay Context](https://apis.io/jsonld/oddsrelay/oddsrelay-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [OddsRelay API Rules](https://apis.io/rules/oddsrelay/oddsrelay-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Oddsrelay Authentication](https://apis.io/security/oddsrelay/oddsrelay-authentication/)
+- [Oddsrelay Domain Security](https://apis.io/security/oddsrelay/oddsrelay-domain-security/)
+- [Oddsrelay Vulnerability Disclosure](https://apis.io/security/oddsrelay/oddsrelay-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Oddsrelay Plans Pricing](https://apis.io/plans/oddsrelay/oddsrelay-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Oddsrelay Rate Limits](https://apis.io/rate-limits/oddsrelay/oddsrelay-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://oddsrelay.io)
+- [Documentation](https://oddsrelay.io/docs)
+- [Getting started](https://oddsrelay.io/docs/guides/quickstart)
+- [API reference](https://oddsrelay.io/docs/reference)
+- [Pricing](https://oddsrelay.io/pricing)
+- [Sign up](https://app.oddsrelay.io/signup)
+- [Changelog](https://oddsrelay.io/docs/changelog)
+- [Blog](https://oddsrelay.io/blog)
+- [Terms of service](https://oddsrelay.io/terms)
+- [Privacy policy](https://oddsrelay.io/privacy)
+- [GitHub](https://github.com/oddsrelay)
+- [Status](https://oddsrelay.io/status)
+
+## API Evangelist rating
+
+**Kin Score 67.7** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 66.7 |
+| Contract governance | 22.0 |
+| Operational transparency | 78.9 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 76.3 |
+
+**Agent readiness 37.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/oddsrelay/](https://apis.io/providers/oddsrelay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OddsRelay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/oddsrelay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
